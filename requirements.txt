@@ -1,0 +1,6 @@
+Flask
+pandas
+openpyxl
+numpy
+flask_cors
+requests

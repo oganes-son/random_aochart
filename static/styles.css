@@ -1,0 +1,431 @@
+/* CSSコード */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f3fbff; /* 全体の背景色 */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 90vw; /* コンテナの幅を90%に設定 */
+    background-color: white; /* 中央の背景色を白に設定 */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* 少し影を追加 */
+    margin: 0; /* 上下の余白を追加 */
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+h1, h2 {
+    color: #0c0031;
+}
+
+div {
+    margin-bottom: 20px; /* 必要に応じて適切な値に調整 */
+}
+
+#login {
+    text-align: center;
+}
+
+input[type="password"] {
+    width: 20vw; /* PCの場合の幅を20vwに設定 */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    width: 20vw; /* PCの場合の幅を20vwに設定 */
+    background-color: #6dd1f2;
+    color: white;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4682b4;
+}
+
+.center-align {
+    text-align: center;
+}
+
+.left-align {
+    text-align: left;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+.sample_h_21 {
+    font-size: 1.5em;
+    padding: .5em .7em;
+    margin-bottom: 2em;
+    position: relative;
+    background-color: #ace8fc;
+    border-left: solid 2em #02688a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #0c0031;
+    width: 80vw; /* 幅を90%に固定 */
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+.sample_h_21:before {
+    position: absolute;
+    content: "\f303";
+    font-family: "Font Awesome 5 Free";
+    padding: 0em;
+    font-weight: 900;
+    left: -1.5em;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background-color: #02688a;
+    color: #ffffff;
+}
+
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+        padding: 0 5%; /* 左右に5%の余白を設定 */
+    }
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+    .sample_h_21 {
+        width: 100%;
+        font-size: 1.2em;
+    }
+    input[type="password"] {
+        width: 50vw; /* 携帯の場合の幅を90vwに設定 */
+        padding: 8px;
+    }
+    button {
+        width: 50vw; /* 携帯の場合の幅を90vwに設定 */
+        padding: 8px;
+    }
+    .RightContent {
+        position: relative;
+        margin-top: 20px;
+        width: 100%;
+        height: auto;
+        order: 2; 
+    }
+    .content-and-sidebar {
+        flex-direction: column;
+    }
+    .main-content {
+        order: 1;
+    }
+
+}
+
+.mode-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.mode-buttons button {
+    margin: 0 10px;
+}
+
+.unit-checkbox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.unit-checkbox label {
+    display: flex;
+    align-items: center; /* 水平に中央揃え */
+    gap: 10px; /* トグルスイッチとテキストの間に余白を追加 */
+}
+
+.toggle-section {
+    width: 48%;
+    margin-bottom: 20px;
+}
+
+.toggle-button {
+    width: 20vw; /* PCの場合の幅を20vwに設定 */
+    background-color: #6dd1f2;
+    color: white;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+    background-color: #2682b4;
+}
+
+.menu-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ace8fc; /* 薄い水色 */
+    color: #0c0031;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: background-color 0.3s ease, color 0.3s
+}
+
+.menu-button:hover {
+    background-color: #4682b4; /* 青色 */
+    color: #fff;
+    cursor: pointer;
+}
+
+.checkbox-section {
+    display: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fafafa;
+}
+
+.checkbox-section label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+}
+
+input:checked + .slider {
+    background-color: #4682b4;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #6dd1f2;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.toggle-text {
+    margin-left: 10px; /* スライダーとテキストの間に余白を追加 */
+} */
+
+label.toggle-switch:has(input[type="checkbox"]) {
+    display: inline-flex;
+    --font-size: 24px; /* 基本サイズ お好きなサイズに設定 */
+    font-size: var(--font-size);
+    line-height: calc(var(--font-size) + 4px);
+    align-items: center;
+}
+label.toggle-switch > input[type="checkbox"] {
+    box-sizing: border-box;
+    position: relative;
+    font-size: 1.4em;
+    width: 2em;
+    height: 1em;
+    padding: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    background: #AAA; /* オフの色 */
+    border-radius: 0.5em;
+    box-shadow: 0.3em 0.3em 0.3em 0px rgba(0, 0, 0, 0.6) inset;
+    -webkit-tap-highlight-color: transparent;
+}
+label.toggle-switch > input[type="checkbox"]:checked {
+    background: #6dd1f2; /* オンの色 */
+}
+label.toggle-switch > input[type="checkbox"]::before {
+    box-sizing: border-box;
+    content: "";
+    position: absolute;
+    left: 0.1em;
+    top: 0.1em;
+    bottom: 0.1em;
+    width: 0.8em;
+    background: #FFF;
+    border-radius: 0.4em;
+    transform: translate(0%, 0%);
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0.1em 0.1em 0.1em 0px rgba(0, 0, 0, 0.6);
+    margin: 0;
+}
+label.toggle-switch > input[type="checkbox"]:checked::before {
+    transform: translate(125%, 0%);
+    transition: all 0.2s ease-in-out;
+}
+label.toggle-switch > input[type="checkbox"]::after {
+    box-sizing: border-box;
+    position: absolute;
+    content: "OFF";
+    color: #fff;
+    font-size: 0.4em;
+    left: 0.5em;
+    text-align: right;
+    width: calc(100% - 1em);
+    top: 50%;
+    transform: translate(0, -50%);
+}
+label.toggle-switch > input[type="checkbox"]:checked::after {
+    content: "ON";
+    text-align: left;
+}
+
+
+
+/*タブ切り替え--------------------*/
+
+/* 全体を囲むdiv（親要素）*/
+.tab-wrap {
+    --active-tab-color: #6dd1f2; /*選択したタブの色をここに指定*/
+    --tab-gap: 10px; /*タブ間の余白*/
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--tab-gap);
+}
+  
+/*タブ(label)のスタイル*/
+.tab-label {
+    color: #0c0031;
+    border-bottom: 1px solid var(--active-tab-color);
+    text-align: center;
+    padding: .5em 1em;
+    order: -1; /*タブを上段に表示する*/
+    flex-grow: 1; /*flexアイテムの伸び率を調整*/
+    position: relative;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+  
+/* タブのコンテンツ部分*/
+.tab-content {
+    width: 100%;
+    display: none; /*いったん非表示状態に設定*/
+    position: relative;
+}
+.tab-switch:not(:checked) + .tab-label {
+    color: #0c0031; /* 選択されていないときも文字色を維持 */
+}
+  
+/*選択されていることがわかるように、選択されているタブの色を変える*/
+.tab-switch:checked + .tab-label {
+    background-color: var(--active-tab-color);
+    color: #fff;
+}
+  
+/*吹き出し部分*/
+.tab-switch:checked + .tab-label:after {
+    background-color: var(--active-tab-color);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    content: "";
+    height: 10px;
+    left: 50%;
+    position: absolute;
+    top: 100%;
+    transform: translateX(-50%);
+    width: 20px;
+}
+  
+/* 選択されているタブのコンテンツを表示させる */
+.tab-switch:checked + .tab-label + .tab-content {
+    display: block;
+    margin-top: 1em;
+}
+  
+/* input（ラジオボタン）は仕組みだけ利用するため非表示 */
+.tab-switch {
+    display: none;
+}
+  
+/* サイドバーのスタイル */
+.RightContent {
+    width: 30%; /* サイドバーの幅を30%に固定 */
+    background-color: #f3fbff;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    overflow-y: auto;
+    margin-top: 0; /* タブの下に配置されるようにマージンをリセット */
+    position: relative; /* タブ下に配置 */
+    height: auto;
+}
+
+
+/* 内容とサイドバーを並べるスタイル */
+.content-and-sidebar {
+    display: flex;
+    flex-direction: row; /* サイドバーを右側に配置 */
+    margin-right: 0;
+}
+
+/* メインコンテンツのスタイル */
+.main-content {
+    flex: 1;
+}
+
+/* 問題を選ぶボタンの位置を左端に設定 */
+button.center-align {
+    margin-left: 0; /* 左端に配置 */
+}
+
+
+
+/* メインコンテンツのスタイルを調整 */
+.MainContent {
+    width: 70%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* サイドバーのスタイル */
+.RightContent {
+    width: 30%;
+    background-color: #f3fbff;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* ナビゲーションメニューのスタイル */
+.NavigationMenu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #6dd1f2;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tab-label {
+    color: white;
+    padding: 10px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-switch:checked + .tab-label + .tab-content {
+    display: block;
+}

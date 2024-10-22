@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>青チャートランダム問題</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            chtml: {
+                displayAlign: 'left'
+            }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="favicon.ico">
+</head>
+
+<body>
+    <div class="container">
+        <div id="login">
+            <h2>パスワードを入力してください</h2>
+            <input type="password" id="password" placeholder="パスワード">
+            <button onclick="checkPassword()">送信</button>
+        </div>
+        <div id="content" style="display: none;">
+            <h1 class="sample_h_21">青チャートランダム問題</h1>
+            <div class="tab-wrap">
+                <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" />
+                <label class="tab-label" for="TAB-01">ランダムモード</label>
+                <div class="tab-content">
+                    <div class="content-and-sidebar">
+                        <div class="main-content">
+                            <button class="center-align" onclick="getProblem()">問題を選ぶ</button>
+                            <p class="left-align">問題番号: <span id='problem_number'></span></p>
+                            <p class="error-message" id="error-message" style="display: none;">少なくとも1つの単元をチェックしてください。</p>
+                            <div id='equation_container' class="left-align word-wrap"></div>
+                            <div id='question1' class="left-align word-wrap"></div>
+                            <div id='question2' class="left-align word-wrap"></div>
+                            <div id='question3' class="left-align word-wrap"></div>
+                            <div id='question4' class="left-align word-wrap"></div>
+                        </div>
+
+                        <!-- 右側サイトコンテンツ -->
+                        <aside>
+                            <section>
+                                <h4>単元を選択</h4>
+                                <div class="unit-checkbox">
+
+                                    <!-- <div onclick="obj=document.getElementById('menu_math1A').style; obj.display=(obj.display=='none')?'block':'none';">
+                                        <a class="menu-button" style="cursor:pointer;">▼ 数学IA ▼</a>
+                                    </div>      
+                                    <div id="menu_math1A" style="display:none;clear:both;">
+                                        <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text"> 関数</span></label>
+                                    </div>
+                                    <div onclick="obj=document.getElementById('menu_math2BC').style; obj.display=(obj.display=='none')?'block':'none';">
+                                        <a class="menu-button" style="cursor:pointer;">▼ 数学IIBC ▼</a>
+                                    </div>      
+                                    <div id="menu_math2BC" style="display:none;clear:both;">
+                                        <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text"> 関数</span></label>
+                                    </div> -->
+
+                                    <!-- 折りたたみ展開ボタン -->
+                                    <div onclick="obj=document.getElementById('menu_math3').style; obj.display=(obj.display=='none')?'block':'none';">
+                                        <a class="menu-button" style="cursor:pointer;">▼ 数学III ▼</a>
+                                    </div>      
+                                    <!-- ここから先を折りたたむ -->
+                                    <div id="menu_math3" style="display:none;clear:both;">
+                                        <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text"> 関数</span></label>
+                                        <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text"> 極限</span></label>
+                                        <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text"> 微分法</span></label>
+                                        <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text"> 微分法の応用</span></label>
+                                        <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text"> 積分法</span></label>
+                                        <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text"> 積分法の応用</span></label>
+                                    </div>
+                                    <!--// ここまでを折りたたむ -->
+                                </div>
+                            </section>
+                            <!-- <section>
+                                <h3>難易度を選択</h3>
+                                <p>コンパス数でどうにかする</p>
+                            </section> -->
+                        </aside>
+                    </div>
+                </div>
+                <input id="TAB-02" type="radio" name="TAB" class="tab-switch" />
+                <label class="tab-label" for="TAB-02">選択モード</label>
+                <div class="tab-content">
+                    <input type="number" id="problem_number_input" placeholder="問題番号を入力">
+                    <button class="center-align" onclick="getSelectedProblem()">問題を表示</button>
+                    <p class="left-align">問題番号: <span id='selected_problem_number'></span></p>
+                    <div id='selected_equation_container' class="left-align word-wrap"></div>
+                    <div id='selected_question1' class="left-align word-wrap"></div>
+                    <div id='selected_question2' class="left-align word-wrap"></div>
+                    <div id='selected_question3' class="left-align word-wrap"></div>
+                    <div id='selected_question4' class="left-align word-wrap"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="static/script.js"></script>
+</body>
+</html>
