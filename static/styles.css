@@ -3,7 +3,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #d2f0fa; /* 全体の背景色 */
+    background-color: #cceefa; /* 全体の背景色 */
     margin: 0;
     padding: 0;
     display: flex;
@@ -12,7 +12,7 @@ body {
 
 .outer-container {
     width: 100vw;
-    background-color: white; /* 外側の背景色 */
+    background-color: #cceefa; /* 外側の背景色 */
     display: flex;
     justify-content: center;
 }
