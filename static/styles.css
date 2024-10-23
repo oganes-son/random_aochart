@@ -3,19 +3,32 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f3fbff; /* 全体の背景色 */
+    background-color: #d2f0fa; /* 全体の背景色 */
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
 }
 
+.outer-container {
+    width: 100vw;
+    background-color: white; /* 外側の背景色 */
+    display: flex;
+    justify-content: center;
+}
+
+.inner-container {
+    width: 90vw;
+    background-color: white; /* 内側の背景色 */
+    padding: 0 5vw; /* 左右の余白を追加 */
+    box-sizing: border-box;
+}
+
 .container {
-    width: 90vw; /* コンテナの幅を90%に設定 */
-    background-color: white; /* 中央の背景色を白に設定 */
-    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* 少し影を追加 */
-    margin: 0; /* 上下の余白を追加 */
-    padding: 0;
+    width: 80vw; /* 内側の幅を80%に設定 */
+    background-color: white;
+    margin: 20px 0;
+    padding: 20px;
     box-sizing: border-box;
 }
 
@@ -159,22 +172,6 @@ button:hover {
 .toggle-section {
     width: 48%;
     margin-bottom: 20px;
-}
-
-.toggle-button {
-    width: 20vw; /* PCの場合の幅を20vwに設定 */
-    background-color: #6dd1f2;
-    color: white;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.toggle-button:hover {
-    background-color: #2682b4;
 }
 
 .menu-button {

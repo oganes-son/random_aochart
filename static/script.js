@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     MathJax.typesetPromise();
 });
 
-const correctPassword = "sumika"; // ここに設定したいパスワードを入力
+const correctPassword = "math"; // ここに設定したいパスワードを入力
 
 function checkPassword() {
     const inputPassword = document.getElementById('password').value;
