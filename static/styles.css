@@ -2,12 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif, 'quicksand';
+    font-weight: lighter;
     background-color: #cceefa; /* 全体の背景色 */
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
+    line-height: 1; /* 行間の余白を調整 */
 }
 
 .outer-container {
@@ -131,20 +133,20 @@ button:hover {
         width: 50vw; /* 携帯の場合の幅を90vwに設定 */
         padding: 8px;
     }
+    .main-content {
+        order: 1;
+    }
+
     .RightContent {
-        position: relative;
         margin-top: 20px;
         width: 100%;
         height: auto;
         order: 2; 
     }
     .content-and-sidebar {
+        display: flex;
         flex-direction: column;
     }
-    .main-content {
-        order: 1;
-    }
-
 }
 
 .mode-buttons {
@@ -356,7 +358,7 @@ label.toggle-switch > input[type="checkbox"]:checked::after {
 /* サイドバーのスタイル */
 .RightContent {
     width: 30%; /* サイドバーの幅を30%に固定 */
-    background-color: #f3fbff;
+    background-color: #d5f1fd; /* ごく薄い水色の背景色 */
     padding: 20px;
     box-shadow: -2px 0 5px rgba(0,0,0,0.1);
     overflow-y: auto;
@@ -426,3 +428,126 @@ button.center-align {
 .tab-switch:checked + .tab-label + .tab-content {
     display: block;
 }
+
+/* アコーディオンスタイル */
+.accordion {
+    width: 20vw;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.title {
+    padding: 10px;
+    cursor: pointer;
+    background: #e3f7ff;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* 角を丸くする */
+    margin-top: -1px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.title:hover {
+    background-color: #b3e5fc; /* ホバー時の色を濃い水色に */
+    border-color: #b3e5fc; 
+}
+
+.content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.content-open {
+    background: #b3e5fc; /* アコーディオンの色を薄くした背景色 */
+}
+
+.content-text {
+    padding: 0 18px;
+    background: #b3e5fc;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* トグルスイッチと名前の間に余白を追加 */
+}
+
+.fa-angle-down {
+    font-size: 20px;
+    color: #333;
+    transition: transform 0.2s ease-out;
+}
+
+.fa-rotate-180 {
+    transform: rotate(180deg);
+}
+
+.toggle-switch {
+    display: flex;
+    align-items: center; /* トグルスイッチと名前を横並びに */
+    gap: 10px; /* スライダーとテキストの間に余白を追加 */
+}
+
+.accordion .title {
+    padding: 10px;
+    height: 20px; /* 高さを調整 */
+    cursor: pointer;
+    background: #e3f7ff; /* 初期の背景色を薄い水色に設定 */
+    border: 1px solid #ddd;
+    border-radius: 8px; /* 角を丸くする */
+    margin-top: -1px;
+    margin-bottom: 0; /* アコーディオン同士の隙間をなくす */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* ホバー時の背景色とボーダー色の変更 */
+}
+
+.accordion .content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    margin-bottom: 0; /* アコーディオン同士の隙間をなくす */
+}
+
+
+aside {
+    background-color: #e3f7ff; /* ごく薄い水色の背景色 */
+    padding: 20px;
+    border-radius: 8px; /* 角を丸くする（お好みで） */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 軽い影を追加（お好みで） */
+}
+
+.accordion .title:hover, 
+.accordion .title:active, 
+.accordion .content-open {
+    background-color: #b3e5fc; /* ホバー時の色と開いた時の背景色を濃い水色に設定 */
+    border-color: #b3e5fc;
+}
+.accordion .content-open .content-text {
+    background-color: #b3e5fc; /* アコーディオンの中身の背景色をホバー時の色に設定 */
+    margin-bottom: 0;
+}
+.accordion .title + .title,
+.accordion .content + .title {
+    border-top: none; /* 上部のボーダーを削除して隙間をさらに減らす */
+}
+
+.accordion .title,
+.accordion .title:hover,
+.accordion .title:active,
+.accordion .content-open {
+    background-color: #e3f7ff; /* 初期の背景色を薄い水色に設定 */
+    border-color: #ddd; /* ボーダーの色 */
+    border-radius: 8px; /* 角を丸くする */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* ホバー時の背景色とボーダー色の変更 */
+}
+
+.accordion .content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    margin-bottom: 0; /* アコーディオン同士の隙間をなくす */
+}
+
