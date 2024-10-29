@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
-    MathJax.typesetPromise();
+    if (typeof MathJax !== 'undefined' && MathJax.startup) {
+        MathJax.startup.promise.then(() => {
+            MathJax.typesetPromise();
+        });
+    }
 
     // パスワードチェック関数
     const correctPassword = "math"; // ここに設定したいパスワードを入力
