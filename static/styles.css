@@ -34,7 +34,6 @@ body {
     box-sizing: border-box;
 }
 
-
 h1, h2 {
     color: #0c0031;
 }
@@ -56,7 +55,7 @@ input[type="password"] {
 }
 
 button {
-    width: 20vw; /* PCの場合の幅を20vwに設定 */
+    width: 30vw; /* PCの場合の幅を30vwに設定 */
     background-color: #6dd1f2;
     color: white;
     padding: 10px;
@@ -112,43 +111,6 @@ button:hover {
     color: #ffffff;
 }
 
-@media (max-width: 600px) {
-    body {
-        font-size: 14px;
-        padding: 0 5%; /* 左右に5%の余白を設定 */
-    }
-    .container {
-        width: 100%;
-        padding: 10px;
-    }
-    .sample_h_21 {
-        width: 100%;
-        font-size: 1.2em;
-    }
-    input[type="password"] {
-        width: 50vw; /* 携帯の場合の幅を90vwに設定 */
-        padding: 8px;
-    }
-    button {
-        width: 50vw; /* 携帯の場合の幅を90vwに設定 */
-        padding: 8px;
-    }
-    .main-content {
-        order: 1;
-    }
-
-    .RightContent {
-        margin-top: 20px;
-        width: 100%;
-        height: auto;
-        order: 2; 
-    }
-    .content-and-sidebar {
-        display: flex;
-        flex-direction: column;
-    }
-}
-
 .mode-buttons {
     display: flex;
     justify-content: center;
@@ -171,6 +133,81 @@ button:hover {
     gap: 10px; /* トグルスイッチとテキストの間に余白を追加 */
 }
 
+/* チェックボックスのカスタムスタイル */
+label.toggle-switch:has(input[type="checkbox"]) {
+    display: inline-flex;
+    --font-size: 16px; /* 基本サイズ お好きなサイズに設定 */
+    font-size: var(--font-size);
+    line-height: calc(var(--font-size) + 4px);
+    align-items: center;
+}
+
+label.toggle-switch > input[type="checkbox"] {
+    box-sizing: border-box;
+    position: relative;
+    font-size: 1.4em;
+    width: 2em;
+    height: 1em;
+    padding: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    background: #AAA; /* オフの色 */
+    border-radius: 0.5em;
+    box-shadow: 0.3em 0.3em 0.3em 0px rgba(0, 0, 0, 0.6) inset;
+    -webkit-tap-highlight-color: transparent;
+}
+
+label.toggle-switch > input[type="checkbox"]:checked {
+    background: #6dd1f2; /* オンの色 */
+}
+
+label.toggle-switch > input[type="checkbox"]::before {
+    box-sizing: border-box;
+    content: "";
+    position: absolute;
+    left: 0.1em;
+    top: 0.1em;
+    bottom: 0.1em;
+    width: 0.8em;
+    background: #FFF;
+    border-radius: 0.4em;
+    transform: translate(0%, 0%);
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0.1em 0.1em 0.1em 0px rgba(0, 0, 0, 0.6);
+    margin: 0;
+}
+
+label.toggle-switch > input[type="checkbox"]:checked::before {
+    transform: translate(125%, 0%);
+    transition: all 0.2s ease-in-out;
+}
+
+label.toggle-switch > input[type="checkbox"]::after {
+    box-sizing: border-box;
+    position: absolute;
+    content: "OFF";
+    color: #fff;
+    font-size: 0.4em;
+    left: 0.5em;
+    text-align: right;
+    width: calc(100% - 1em);
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+label.toggle-switch > input[type="checkbox"]:checked::after {
+    content: "ON";
+    text-align: left;
+}
+
+/* 追加するスタイル */
+label.toggle-switch .toggle-text {
+    font-size: 16px; /* 「問題を選ぶ」ボタンと同じ文字サイズに設定 */
+    white-space: nowrap; /* 改行せず一行に設定 */
+}
+
 .toggle-section {
     width: 48%;
     margin-bottom: 20px;
@@ -185,7 +222,7 @@ button:hover {
     text-decoration: none;
     border-radius: 5px;
     border: 1px solid #ccc;
-    transition: background-color 0.3s ease, color 0.3s
+    transition: background-color 0.3s ease, color 0.3s;
 }
 
 .menu-button:hover {
@@ -225,75 +262,9 @@ input:checked + .slider:before {
 
 .toggle-text {
     margin-left: 10px; /* スライダーとテキストの間に余白を追加 */
-} */
-
-label.toggle-switch:has(input[type="checkbox"]) {
-    display: inline-flex;
-    --font-size: 24px; /* 基本サイズ お好きなサイズに設定 */
-    font-size: var(--font-size);
-    line-height: calc(var(--font-size) + 4px);
-    align-items: center;
-}
-label.toggle-switch > input[type="checkbox"] {
-    box-sizing: border-box;
-    position: relative;
-    font-size: 1.4em;
-    width: 2em;
-    height: 1em;
-    padding: 0;
-    appearance: none;
-    -webkit-appearance: none;
-    -ms-appearance: none;
-    -moz-appearance: none;
-    background: #AAA; /* オフの色 */
-    border-radius: 0.5em;
-    box-shadow: 0.3em 0.3em 0.3em 0px rgba(0, 0, 0, 0.6) inset;
-    -webkit-tap-highlight-color: transparent;
-}
-label.toggle-switch > input[type="checkbox"]:checked {
-    background: #6dd1f2; /* オンの色 */
-}
-label.toggle-switch > input[type="checkbox"]::before {
-    box-sizing: border-box;
-    content: "";
-    position: absolute;
-    left: 0.1em;
-    top: 0.1em;
-    bottom: 0.1em;
-    width: 0.8em;
-    background: #FFF;
-    border-radius: 0.4em;
-    transform: translate(0%, 0%);
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0.1em 0.1em 0.1em 0px rgba(0, 0, 0, 0.6);
-    margin: 0;
-}
-label.toggle-switch > input[type="checkbox"]:checked::before {
-    transform: translate(125%, 0%);
-    transition: all 0.2s ease-in-out;
-}
-label.toggle-switch > input[type="checkbox"]::after {
-    box-sizing: border-box;
-    position: absolute;
-    content: "OFF";
-    color: #fff;
-    font-size: 0.4em;
-    left: 0.5em;
-    text-align: right;
-    width: calc(100% - 1em);
-    top: 50%;
-    transform: translate(0, -50%);
-}
-label.toggle-switch > input[type="checkbox"]:checked::after {
-    content: "ON";
-    text-align: left;
 }
 
-
-
-/*タブ切り替え--------------------*/
-
-/* 全体を囲むdiv（親要素）*/
+/* タブ切り替え */
 .tab-wrap {
     --active-tab-color: #6dd1f2; /*選択したタブの色をここに指定*/
     --tab-gap: 10px; /*タブ間の余白*/
@@ -301,7 +272,7 @@ label.toggle-switch > input[type="checkbox"]:checked::after {
     flex-wrap: wrap;
     gap: var(--tab-gap);
 }
-  
+
 /*タブ(label)のスタイル*/
 .tab-label {
     color: #0c0031;
@@ -314,23 +285,24 @@ label.toggle-switch > input[type="checkbox"]:checked::after {
     cursor: pointer;
     transition: color 0.3s ease;
 }
-  
+
 /* タブのコンテンツ部分*/
 .tab-content {
     width: 100%;
     display: none; /*いったん非表示状態に設定*/
     position: relative;
 }
+
 .tab-switch:not(:checked) + .tab-label {
     color: #0c0031; /* 選択されていないときも文字色を維持 */
 }
-  
+
 /*選択されていることがわかるように、選択されているタブの色を変える*/
 .tab-switch:checked + .tab-label {
     background-color: var(--active-tab-color);
     color: #fff;
 }
-  
+
 /*吹き出し部分*/
 .tab-switch:checked + .tab-label:after {
     background-color: var(--active-tab-color);
@@ -343,68 +315,53 @@ label.toggle-switch > input[type="checkbox"]:checked::after {
     transform: translateX(-50%);
     width: 20px;
 }
-  
+
 /* 選択されているタブのコンテンツを表示させる */
 .tab-switch:checked + .tab-label + .tab-content {
     display: block;
     margin-top: 1em;
 }
-  
+
 /* input（ラジオボタン）は仕組みだけ利用するため非表示 */
 .tab-switch {
     display: none;
 }
-  
-/* サイドバーのスタイル */
+
+/* 右サイドバーのスタイル */
 .RightContent {
-    width: 30%; /* サイドバーの幅を30%に固定 */
+    width: 30vw; /* サイドバーの幅を30%に固定 */
     background-color: #d5f1fd; /* ごく薄い水色の背景色 */
     padding: 20px;
     box-shadow: -2px 0 5px rgba(0,0,0,0.1);
     overflow-y: auto;
     margin-top: 0; /* タブの下に配置されるようにマージンをリセット */
-    position: relative; /* タブ下に配置 */
-    height: auto;
+    position: relative; /* 位置を固定に設定 */
+    top: 0px; /* 位置を調整してランダムモード、選択モードの下に配置 */
+    right: 8%; /* 画面の右側に配置 */
+    height: auto; /* 高さを調整 */
 }
 
-
-/* 内容とサイドバーを並べるスタイル */
+/* メインコンテンツとサイドバーを並べるスタイル */
 .content-and-sidebar {
     display: flex;
-    flex-direction: row; /* サイドバーを右側に配置 */
-    margin-right: 0;
+    flex-direction: row; /* 横方向に並べる */
+    align-items: flex-start; /* 上端を揃える */
+    justify-content: space-between;
+}
+
+aside {
+    background-color: #e3f7ff; /* ごく薄い水色の背景色 */
+    padding: 20px;
+    border-radius: 8px; /* 角を丸くする（お好みで） */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 軽い影を追加（お好みで） */
 }
 
 /* メインコンテンツのスタイル */
 .main-content {
-    flex: 1;
+    flex: 1; /* メインコンテンツを残りの幅に合わせる */
+    margin-right: 8%; /* サイドバーの幅に合わせてマージンを追加 */
 }
 
-/* 問題を選ぶボタンの位置を左端に設定 */
-button.center-align {
-    margin-left: 0; /* 左端に配置 */
-}
-
-
-
-/* メインコンテンツのスタイルを調整 */
-.MainContent {
-    width: 70%;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* サイドバーのスタイル */
-.RightContent {
-    width: 30%;
-    background-color: #f3fbff;
-    padding: 20px;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    box-sizing: border-box;
-}
-
-/* ナビゲーションメニューのスタイル */
 .NavigationMenu {
     display: flex;
     justify-content: center;
@@ -431,67 +388,15 @@ button.center-align {
 
 /* アコーディオンスタイル */
 .accordion {
-    width: 20vw;
-    margin: auto;
+    width: 30vw;
+    margin-left: 0;
     margin-top: 20px;
-}
-
-.title {
-    padding: 10px;
-    cursor: pointer;
-    background: #e3f7ff;
-    border: 1px solid #ddd;
-    border-radius: 8px; /* 角を丸くする */
-    margin-top: -1px;
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.title:hover {
-    background-color: #b3e5fc; /* ホバー時の色を濃い水色に */
-    border-color: #b3e5fc; 
-}
-
-.content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-}
-
-.content-open {
-    background: #b3e5fc; /* アコーディオンの色を薄くした背景色 */
-}
-
-.content-text {
-    padding: 0 18px;
-    background: #b3e5fc;
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* トグルスイッチと名前の間に余白を追加 */
-}
-
-.fa-angle-down {
-    font-size: 20px;
-    color: #333;
-    transition: transform 0.2s ease-out;
-}
-
-.fa-rotate-180 {
-    transform: rotate(180deg);
-}
-
-.toggle-switch {
-    display: flex;
-    align-items: center; /* トグルスイッチと名前を横並びに */
-    gap: 10px; /* スライダーとテキストの間に余白を追加 */
+    margin-right: auto;
 }
 
 .accordion .title {
     padding: 10px;
-    height: 20px; /* 高さを調整 */
+    height: 30px; /* 高さを調整 */
     cursor: pointer;
     background: #e3f7ff; /* 初期の背景色を薄い水色に設定 */
     border: 1px solid #ddd;
@@ -504,45 +409,10 @@ button.center-align {
     transition: background-color 0.3s ease, border-color 0.3s ease; /* ホバー時の背景色とボーダー色の変更 */
 }
 
-.accordion .content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-    margin-bottom: 0; /* アコーディオン同士の隙間をなくす */
-}
-
-
-aside {
-    background-color: #e3f7ff; /* ごく薄い水色の背景色 */
-    padding: 20px;
-    border-radius: 8px; /* 角を丸くする（お好みで） */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 軽い影を追加（お好みで） */
-}
-
-.accordion .title:hover, 
-.accordion .title:active, 
-.accordion .content-open {
-    background-color: #b3e5fc; /* ホバー時の色と開いた時の背景色を濃い水色に設定 */
+.accordion .title:hover {
+    background-color: #b3e5fc; /* ホバー時の色を濃い水色に */
     border-color: #b3e5fc;
 }
-.accordion .content-open .content-text {
-    background-color: #b3e5fc; /* アコーディオンの中身の背景色をホバー時の色に設定 */
-    margin-bottom: 0;
-}
-.accordion .title + .title,
-.accordion .content + .title {
-    border-top: none; /* 上部のボーダーを削除して隙間をさらに減らす */
-}
-
-.accordion .title,
-.accordion .title:hover,
-.accordion .title:active,
-.accordion .content-open {
-    background-color: #e3f7ff; /* 初期の背景色を薄い水色に設定 */
-    border-color: #ddd; /* ボーダーの色 */
-    border-radius: 8px; /* 角を丸くする */
-    transition: background-color 0.3s ease, border-color 0.3s ease; /* ホバー時の背景色とボーダー色の変更 */
-}
 
 .accordion .content {
     max-height: 0;
@@ -551,3 +421,100 @@ aside {
     margin-bottom: 0; /* アコーディオン同士の隙間をなくす */
 }
 
+.accordion .content-open {
+    background: #b3e5fc; /* アコーディオンの色を薄くした背景色 */
+}
+
+.accordion .content-text {
+    padding: 0 18px;
+    background: #b3e5fc;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* トグルスイッチと名前の間に余白を追加 */
+}
+
+.accordion .fa-angle-down {
+    font-size: 20px;
+    color: #333;
+    transition: transform 0.2s ease-out;
+}
+
+.accordion .fa-rotate-180 {
+    transform: rotate(180deg);
+}
+
+.accordion .toggle-switch {
+    display: flex;
+    align-items: center; /* トグルスイッチと名前を横並びに */
+    gap: 10px; /* スライダーとテキストの間に余白を追加 */
+}
+
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+        padding: 0 5%; /* 左右に5%の余白を設定 */
+    }
+
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .sample_h_21 {
+        width: 100%;
+        font-size: 1.2em;
+    }
+
+    input[type="password"] {
+        width: 50vw; /* 携帯の場合の幅を50vwに設定 */
+        padding: 8px;
+    }
+
+    button {
+        width: 50vw; /* 携帯の場合の幅を50vwに設定 */
+        padding: 8px;
+    }
+
+    .content-and-sidebar {
+        display: flex;
+        flex-direction: column; /* 縦方向に並べる */
+    }
+
+    .accordion {
+        width: 60vw; /* 横幅を大きくする */
+        margin: auto; /* 中央に配置 */
+        margin-top: 20px;
+    }
+
+    .main-content {
+        order: 1; /* メインコンテンツを先に表示 */
+    }
+
+    .RightContent {
+        width: 100%; /* 幅を100%に設定 */
+        position: relative; /* 位置を相対に設定 */
+        top: auto; /* 位置をリセット */
+        right: auto; /* 位置をリセット */
+        margin-top: 20px; /* 上部に余白を追加 */
+    }
+
+    #equation_container,
+    #question1,
+    #question2,
+    #question3,
+    #question4 {
+        order: 2; /* これらの要素をサイドコンテンツの前に表示 */
+    }
+
+    label.toggle-switch:has(input[type="checkbox"]) {
+        --font-size: 16px; /* スクリーン幅が小さいときの基本サイズ */
+        font-size: var(--font-size);
+        line-height: calc(var(--font-size) + 2px);
+    }
+
+    label.toggle-switch > input[type="checkbox"] {
+        font-size: 1.2em; /* フォントサイズを小さくする */
+        width: 1.6em; /* 幅を小さくする */
+        height: 0.8em; /* 高さを小さくする */
+    }
+}
