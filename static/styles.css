@@ -378,10 +378,6 @@ aside {
     cursor: pointer;
 }
 
-.tab-content {
-    display: none;
-}
-
 .tab-switch:checked + .tab-label + .tab-content {
     display: block;
 }
@@ -422,6 +418,7 @@ aside {
 }
 
 .accordion .content-open {
+    max-height: 100vh; /* 適切な値に調整 */
     background: #b3e5fc; /* アコーディオンの色を薄くした背景色 */
 }
 
@@ -439,6 +436,10 @@ aside {
     transition: transform 0.2s ease-out;
 }
 
+.accordion .fa {
+    transition: transform 0.2s ease-out;
+}
+
 .accordion .fa-rotate-180 {
     transform: rotate(180deg);
 }
@@ -448,6 +449,34 @@ aside {
     align-items: center; /* トグルスイッチと名前を横並びに */
     gap: 10px; /* スライダーとテキストの間に余白を追加 */
 }
+
+/* セレクトボックスのスタイル */
+#unit_select {
+    width: 20vw; /* セレクトボックスの幅を設定 */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px; /* フォントサイズを指定 */
+}
+
+.selection-mode {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* 各要素の間に余白を追加 */
+}
+
+.selection-mode select,
+.selection-mode input,
+.selection-mode button {
+    width: 20vw; /* セレクトボックス、入力ボックス、ボタンの幅を統一 */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px; /* フォントサイズを指定 */
+}
+
 
 @media (max-width: 600px) {
     body {
@@ -516,5 +545,15 @@ aside {
         font-size: 1.2em; /* フォントサイズを小さくする */
         width: 1.6em; /* 幅を小さくする */
         height: 0.8em; /* 高さを小さくする */
+    }
+    #unit_select {
+        width: 50vw; /* モバイルの場合のセレクトボックスの幅を設定 */
+        padding: 8px;
+    }
+    .selection-mode select,
+    .selection-mode input,
+    .selection-mode button {
+        width: 50vw; /* モバイルの場合の幅を設定 */
+        padding: 8px;
     }
 }
