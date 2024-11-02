@@ -9,7 +9,8 @@ body {
     padding: 0;
     display: flex;
     justify-content: center;
-    line-height: 1; /* 行間の余白を調整 */
+    line-height: 2; /* 行間の余白を調整 */
+    margin-bottom: 20px; /* 行ごとの余白を追加 */
 }
 
 .outer-container {

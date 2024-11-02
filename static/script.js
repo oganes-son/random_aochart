@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll('.unit-checkbox:checked').forEach(checkbox => {
             selectedUnits.push(checkbox.parentElement.textContent.trim());
         });
-        console.log('Selected units:', selectedUnits); // 選択された単元をログに出力
         if (selectedUnits.length === 0) {
             document.getElementById('error-message').style.display = 'block';
             return;
@@ -50,9 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Response data:', data); // サーバーからのレスポンスをログに出力
             if (data.error) {
-                console.error('Error from server:', data.error); // サーバーからのエラー内容をログに出力
                 alert('Server error: ' + data.error);
                 return;
             }
@@ -85,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         })
         .catch(error => {
-            console.error('Fetch error:', error); // フェッチエラーをログに出力
             alert('There was an error fetching the problem. Please try again later.');
         });
     }
@@ -98,7 +94,6 @@ document.addEventListener("DOMContentLoaded", function() {
         fetch(`/get_selected_problem?unit=${unit}&problem_number=${problemNumber}`)
             .then(response => response.json())
             .then(data => {
-                console.log('Response data:', data); // デバッグ用ログ
 
                 if (data.error) {
                     throw new Error(data.error);
@@ -116,15 +111,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 const selectedQuestion6 = document.getElementById('selected_question6');
 
                 if (selectedProblemNumberElement && selectedEquationContainer && selectedQuestion1 && selectedQuestion2 && selectedQuestion3 && selectedQuestion4 && selectedQuestion5 && selectedQuestion6) {
-                    console.log('Updating elements with data...');
-                    console.log('selectedProblemNumberElement:', selectedProblemNumberElement);
-                    console.log('selectedEquationContainer:', selectedEquationContainer);
-                    console.log('selectedQuestion1:', selectedQuestion1);
-                    console.log('selectedQuestion2:', selectedQuestion2);
-                    console.log('selectedQuestion3:', selectedQuestion3);
-                    console.log('selectedQuestion4:', selectedQuestion4);
-                    console.log('selectedQuestion5:', selectedQuestion5);
-                    console.log('selectedQuestion6:', selectedQuestion6);
 
                     selectedProblemNumberElement.innerText = checkEmpty(data.problem_number);
                     selectedEquationContainer.innerHTML = wrapLatex(checkEmpty(data.equation));
@@ -134,14 +120,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     selectedQuestion4.innerHTML = wrapLatex(checkEmpty(data.q4));
                     selectedQuestion5.innerHTML = wrapLatex(checkEmpty(data.q5));
                     selectedQuestion6.innerHTML = wrapLatex(checkEmpty(data.q6));
-
-                    console.log('selectedEquationContainer.innerHTML:', selectedEquationContainer.innerHTML);
-                    console.log('selectedQuestion1.innerHTML:', selectedQuestion1.innerHTML);
-                    console.log('selectedQuestion2.innerHTML:', selectedQuestion2.innerHTML);
-                    console.log('selectedQuestion3.innerHTML:', selectedQuestion3.innerHTML);
-                    console.log('selectedQuestion4.innerHTML:', selectedQuestion4.innerHTML);
-                    console.log('selectedQuestion5.innerHTML:', selectedQuestion5.innerHTML);
-                    console.log('selectedQuestion6.innerHTML:', selectedQuestion6.innerHTML);
 
                     MathJax.typesetPromise([
                         selectedEquationContainer, 
