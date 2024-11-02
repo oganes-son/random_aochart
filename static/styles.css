@@ -511,20 +511,21 @@ aside {
         order: 1; /* メインコンテンツを先に表示 */
     }
 
-    .RightContent {
-        width: 100%; /* 幅を100%に設定 */
-        position: relative; /* 位置を相対に設定 */
-        top: auto; /* 位置をリセット */
-        right: auto; /* 位置をリセット */
-        margin-top: 20px; /* 上部に余白を追加 */
-    }
-
     #equation_container,
     #question1,
     #question2,
     #question3,
     #question4 {
         order: 2; /* これらの要素をサイドコンテンツの前に表示 */
+    }
+
+    .RightContent {
+        width: 100%; /* 幅を100%に設定 */
+        position: relative; /* 位置を相対に設定 */
+        top: auto; /* 位置をリセット */
+        right: auto; /* 位置をリセット */
+        margin-top: 20px; /* 上部に余白を追加 */
+        order: 3;
     }
 
     label.toggle-switch:has(input[type="checkbox"]) {

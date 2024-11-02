@@ -9,7 +9,6 @@ CORS(app)  # CORSを有効にする
 
 # エクセルファイルを読み込む(ファイルパスから)
 file_path = os.path.join(os.path.dirname(__file__), 'aochart_LaTeX_data.xlsx')
-print(f"File path: {file_path}")  # デバッグ用にファイルパスを出力
 
 try:
     df = pd.read_excel(file_path)
@@ -25,19 +24,15 @@ def get_problem():
     try:
         data = request.get_json()
         selected_units = data.get('units', [])
-        print('Selected units:', selected_units)  # 選択された単元をログに出力
         
         # 選択された単元の行をすべて取得
         matching_rows = df[df.iloc[:, 1].isin(selected_units)].iloc[1:1100]
-        print('Matching rows:', matching_rows)  # ログに出力
         
         if matching_rows.empty:
-            print('No matching rows found')  # ログに出力
             return jsonify(error="No problems found for the selected units.")
         
         # ランダムに行を選択
         random_row = matching_rows.sample(n=1).iloc[0]
-        print('Random row:', random_row)  # ログに出力
         
         problem_number = int(random_row.iloc[3])  # int 型に変換
         latex_data = random_row.iloc[4]
@@ -47,8 +42,6 @@ def get_problem():
         q4 = random_row.iloc[8]
         q5 = random_row.iloc[9]
         q6 = random_row.iloc[10]
-        
-        print('Selected problem number:', problem_number)  # ログに出力
         
         # 空白値をチェックして、空白のままにする
         q1 = "" if pd.isna(q1) else q1
@@ -71,12 +64,10 @@ def get_selected_problem():
     try:
         selected_unit = request.args.get('unit')
         problem_number = int(request.args.get('problem_number'))
-        print(f"Selected unit: {selected_unit}, Problem number: {problem_number}")
         
         row = df[(df.iloc[:, 1] == selected_unit) & (df.iloc[:, 3] == problem_number)]
         
         if row.empty:
-            print("No matching rows found.")
             return jsonify(problem_number=problem_number, equation="", q1="", q2="", q3="", q4="", q5="", q6="")
         
         latex_data = row.iloc[0, 4]
@@ -95,7 +86,6 @@ def get_selected_problem():
         q6 = "" if pd.isna(q6) else q6
 
         response = jsonify(problem_number=problem_number, equation=latex_data, q1=q1, q2=q2, q3=q3, q4=q4, q5=q5, q6=q6)
-        print("Response data:", response.get_json())
         return response
     except Exception as e:
         print(f"Error: {e}")
