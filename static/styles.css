@@ -363,15 +363,6 @@ aside {
     margin-right: 8%; /* サイドバーの幅に合わせてマージンを追加 */
 }
 
-.NavigationMenu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #6dd1f2;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
 .tab-label {
     color: white;
     padding: 10px;
