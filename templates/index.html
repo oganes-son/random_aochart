@@ -37,7 +37,7 @@
                     <button onclick="checkPassword()">送信</button>
                 </div>
                 <div id="content" style="display: none;">
-                    <h1 class="sample_h_21">青チャートランダム問題</h1>
+                    <h1 class="sample_h_21"> Study AO Chart</h1>
                     <div class="tab-wrap">
                         <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" />
                         <label class="tab-label" for="TAB-01">ランダムモード</label>
@@ -57,78 +57,117 @@
                                 </div>
                                 <!-- 右側サイトコンテンツ -->
                                 <aside>
-                                    <h3 class="left-align">＜設定＞</h3>
                                     <p class="left-align">★単元を選択</p>
+
+                                    <!-- 単元選択アコーディオン -->
                                     <div class="accordion">
-                                        <!-- アコーディオンアイテム1 -->
-                                        <div class="accordion-item">
+                                        <div class="accordion-item1">
                                             <div class="title">
-                                                <span class="title-text">数学IA</span>
-                                                <div class="arrow-wrapper">
-                                                    <i class="fa fa-angle-down"></i>
-                                                </div>
+                                                <span class="title-text">数学I</span><label class="toggle-switch"> <input type="checkbox" class="unit-toggle" data-target="math1-checkboxes" checked> <span class="slider"></span> </label>
+                                                <div class="arrow-wrapper"><i class="fa fa-angle-down"></i></div>
                                             </div>
-                                            <div class="content">
-                                                <div class="content-text">
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数I数と式</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数I集合と命題</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数I2次関数</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数I図形と計量</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数Iデータの分析（準備中）</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数A場合の数（準備中）</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数A確率（準備中）</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数A図形の性質（準備中）</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数A数学と人間の活動（準備中）</span></label>
-                                                </div>
+                                        <div class="content" id="math1-checkboxes">
+                                            <div class="content-text">
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数I数と式</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数I集合と命題</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数I2次関数</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数I図形と計量</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数Iデータの分析（準備中）</span></label>
                                             </div>
                                         </div>
-                                        <!-- アコーディオンアイテム2 -->
-                                        <div class="accordion-item">
-                                            <div class="title">
-                                                <span class="title-text">数学IIBC</span>
-                                                <div class="arrow-wrapper">
-                                                    <i class="fa fa-angle-down"></i>
-                                                </div>
-                                            </div>
-                                            <div class="content">
-                                                <div class="content-text">
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数II式と証明</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数II複素数と方程式</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数II図形と方程式</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数II三角関数</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数II指数関数と対数関数</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数II微分法</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数II積分法</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数B数列（準備中）</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数B統計的な推測（準備中）</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数C平面上のベクトル（準備中）</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数C空間のベクトル（準備中）</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数C複素数平面（準備中）</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数C式と曲線（準備中）</span></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- アコーディオンアイテム3 -->
-                                        <div class="accordion-item">
-                                            <div class="title">
-                                                <span class="title-text">数学III</span>
-                                                <div class="arrow-wrapper">
-                                                    <i class="fa fa-angle-down"></i>
-                                                </div>
-                                            </div>
-                                            <div class="content">
-                                                <div class="content-text">
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数III関数</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数III極限</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数III微分法</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数III微分法の応用</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数III積分法</span></label>
-                                                    <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数III積分法の応用</span></label>
-                                                </div>
-                                            </div>
-                                        </div>                                       
                                     </div>
+                                    <div class="accordion-item2">
+                                        <div class="title">
+                                            <span class="title-text">数学A</span><label class="toggle-switch"> <input type="checkbox" class="unit-toggle" data-target="mathA-checkboxes" checked> <span class="slider"></span> </label>
+                                            <div class="arrow-wrapper"><i class="fa fa-angle-down"></i></div>
+                                        </div>
+                                        <div class="content" id="mathA-checkboxes">
+                                            <div class="content-text">
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数A場合の数（準備中）</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数A確率（準備中）</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数A図形の性質（準備中）</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数A数学と人間の活動（準備中）</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item3">
+                                        <div class="title">
+                                            <span class="title-text">数学II</span><label class="toggle-switch"> <input type="checkbox" class="unit-toggle" data-target="math2-checkboxes" checked> <span class="slider"></span> </label>
+                                            <div class="arrow-wrapper"><i class="fa fa-angle-down"></i></div>
+                                        </div>
+                                        <div class="content" id="math2-checkboxes">
+                                            <div class="content-text">
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数II式と証明</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数II複素数と方程式</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数II図形と方程式</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数II三角関数</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数II指数関数と対数関数</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数II微分法</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数II積分法</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item4">
+                                        <div class="title">
+                                            <span class="title-text">数学B</span><label class="toggle-switch"> <input type="checkbox" class="unit-toggle" data-target="mathB-checkboxes" checked> <span class="slider"></span> </label>
+                                            <div class="arrow-wrapper"><i class="fa fa-angle-down"></i></div>
+                                        </div>
+                                        <div class="content" id="mathB-checkboxes">
+                                            <div class="content-text">
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数B数列（準備中）</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数B統計的な推測（準備中）</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item5">
+                                        <div class="title">
+                                            <span class="title-text">数学III</span><label class="toggle-switch"> <input type="checkbox" class="unit-toggle" data-target="math3-checkboxes" checked> <span class="slider"></span> </label>
+                                            <div class="arrow-wrapper"><i class="fa fa-angle-down"></i></div>
+                                        </div>
+                                        <div class="content" id="math3-checkboxes">
+                                            <div class="content-text">
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数III関数</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数III極限</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数III微分法</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数III微分法の応用</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数III積分法</span></label>
+                                                <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数III積分法の応用</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item6">
+                                        <div class="title">
+                                            <span class="title-text">数学C</span><label class="toggle-switch"> <input type="checkbox" class="unit-toggle" data-target="mathC-checkboxes" checked> <span class="slider"></span> </label>
+                                            <div class="arrow-wrapper"><i class="fa fa-angle-down"></i></div>
+                                        </div>
+                                        <div class="content" id="mathC-checkboxes">
+                                            <div class="content-text">
+                                            <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数C平面上のベクトル（準備中）</span></label>
+                                            <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数C空間のベクトル（準備中）</span></label>
+                                            <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数C複素数平面（準備中）</span></label>
+                                            <label class="toggle-switch"><input type="checkbox" class="unit-checkbox" checked><span class="slider"></span><span class="toggle-text">数C式と曲線（準備中）</span></label>
+                                        </div>                                      
+                                    </div>
+                                </aside>
+                                <aside>
                                     <p class="left-align">★難易度を限定</p>
+                                    <div class="accordion-difficult">
+                                        <div class="content" id="difficult">
+                                            <div class="content-text">
+                                                <label class="toggle-switch">
+                                                    <input type="checkbox" class="unit-checkbox" data-difficulty="1" checked><span class="slider"></span><span class="toggle-text">★☆☆☆☆（レベル：1）</span></label>
+                                                <label class="toggle-switch">
+                                                    <input type="checkbox" class="unit-checkbox" data-difficulty="2" checked><span class="slider"></span><span class="toggle-text">★★☆☆☆（レベル：2）</span></label>
+                                                <label class="toggle-switch">
+                                                    <input type="checkbox" class="unit-checkbox" data-difficulty="3" checked><span class="slider"></span><span class="toggle-text">★★★☆☆（レベル：3）</span></label>
+                                                <label class="toggle-switch">
+                                                    <input type="checkbox" class="unit-checkbox" data-difficulty="4" checked><span class="slider"></span><span class="toggle-text">★★★★☆（レベル：4）</span></label>
+                                                <label class="toggle-switch">
+                                                    <input type="checkbox" class="unit-checkbox" data-difficulty="5" checked><span class="slider"></span><span class="toggle-text">★★★★★（レベル：5）</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </aside>
                             </div>
                         </div>
@@ -138,42 +177,42 @@
                             <div class="selection-mode">
                                 <label for="unit_select">単元を選択:</label>
                                 <select id="unit_select">
-                                    <option value="数I数と式">数I数と式</option>
-                                    <option value="数I集合と命題">数I集合と命題</option>
-                                    <option value="数I2次関数">数I2次関数</option>
-                                    <option value="数I図形と計量">数I図形と計量</option>
-                                    <option value="数Iデータの分析">数Iデータの分析</option>
-                                    <option value="数A場合の数">数A場合の数</option>
-                                    <option value="数A確率">数A確率</option>
-                                    <option value="数A図形の性質">数A図形の性質</option>
-                                    <option value="数A数学と人間の活動">数A数学と人間の活動（準備中）</option>
+                                    <option value="数I数と式">数と式(1-43)</option>
+                                    <option value="数I集合と命題">集合と命題(44-63)</option>
+                                    <option value="数I2次関数">2次関数(64-132)</option>
+                                    <option value="数I図形と計量">図形と計量(133-174)</option>
+                                    <option value="数Iデータの分析">データの分析(175-194)</option>
+                                    <option value="数A場合の数">場合の数(1-34)</option>
+                                    <option value="数A確率">確率(35-69)</option>
+                                    <option value="数A図形の性質">図形の性質(70-109)</option>
+                                    <option value="数A数学と人間の活動">数学と人間の活動（準備中）(110-156)</option>
 
-                                    <option value="数II式と証明">数II式と証明</option>
-                                    <option value="数II複素数と方程式">数II複素数と方程式</option>
-                                    <option value="数II図形と方程式">数II図形と方程式</option>
-                                    <option value="数II三角関数">数II三角関数</option>
-                                    <option value="数II指数関数と対数関数">数II指数関数と対数関数</option>
-                                    <option value="数II微分法">数II微分法</option>
-                                    <option value="数II積分法">数II積分法</option>
-                                    <option value="数B数列">数B数列（準備中）</option>
-                                    <option value="数B統計的な推測">数B統計的な推測（準備中）</option>
-                                    <option value="数C平面上のベクトル">数C平面上のベクトル</option>
-                                    <option value="数C空間のベクトル">数C空間のベクトル（準備中）</option>
-                                    <option value="数C複素数平面">数C複素数平面（準備中）</option>
-                                    <option value="数C式と曲線">数C式と曲線（準備中）</option>
+                                    <option value="数II式と証明">式と証明(1-34)</option>
+                                    <option value="数II複素数と方程式">複素数と方程式(35-70)</option>
+                                    <option value="数II図形と方程式">図形と方程式(71-131)</option>
+                                    <option value="数II三角関数">三角関数(132-168)</option>
+                                    <option value="数II指数関数と対数関数">指数関数と対数関数(169-194)</option>
+                                    <option value="数II微分法">微分法(195-234)</option>
+                                    <option value="数II積分法">積分法(235-262)</option>
+                                    <option value="数B数列">数列（準備中）(1-61)</option>
+                                    <option value="数B統計的な推測">統計的な推測（準備中）(62-94)</option>
 
-                                    <option value="数III関数">数III関数</option>
-                                    <option value="数III関数">数III極限</option>
-                                    <option value="数III微分法">数III微分法</option>
-                                    <option value="数III微分法の応用">数III微分法の応用</option>
-                                    <option value="数III積分法">数III積分法</option>
-                                    <option value="数III積分法の応用">数III積分法の応用</option>
+                                    <option value="数III関数">関数(1-16)</option>
+                                    <option value="数III関数">極限(17-59)</option>
+                                    <option value="数III微分法">数III微分法(60-80)</option>
+                                    <option value="数III微分法の応用">微分法の応用(81-128)</option>
+                                    <option value="数III積分法">数III積分法(129-175)</option>
+                                    <option value="数III積分法の応用">積分法の応用(176-215)</option>
+                                    <option value="数C平面上のベクトル">平面上のベクトル(1-43)</option>
+                                    <option value="数C空間のベクトル">空間のベクトル（準備中）(44-89)</option>
+                                    <option value="数C複素数平面">複素数平面（準備中）(90-135)</option>
+                                    <option value="数C式と曲線">式と曲線（準備中）(136-179)</option>
 
                                 </select>
                                 <input type="number" id="problem_number_input" placeholder="問題番号を入力">
                                 <button class="center-align" onclick="getSelectedProblem()">問題を表示</button>
                             </div>
-                            <p class="left-align">問題番号: <span id='selected_problem_number'></span></p>
+                            <p class="left-align">問題番号: <span id='selected_problem_number'></span><span id="difficulty_level">難易度</span></p>
                             <div id='selected_equation_container' class="left-align word-wrap"></div>
                             <div id='selected_question1' class="left-align word-wrap"></div>
                             <div id='selected_question2' class="left-align word-wrap"></div>

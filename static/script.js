@@ -33,19 +33,28 @@ document.addEventListener("DOMContentLoaded", function() {
     // 問題を取得する関数
     function getProblem() {
         const selectedUnits = [];
+        const selectedDifficulties = [];
+
+        // 選択された単元を収集
         document.querySelectorAll('.unit-checkbox:checked').forEach(checkbox => {
             selectedUnits.push(checkbox.parentElement.textContent.trim());
         });
+        // 選択された難易度を収集 
+        document.querySelectorAll('#difficult .unit-checkbox:checked').forEach(checkbox => { 
+            selectedDifficulties.push(checkbox.getAttribute('data-difficulty')); 
+        });
+
         if (selectedUnits.length === 0) {
             document.getElementById('error-message').style.display = 'block';
             return;
         } else {
             document.getElementById('error-message').style.display = 'none';
         }
+
         fetch('/get_problem', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ units: selectedUnits })
+            body: JSON.stringify({ units: selectedUnits, difficulties: selectedDifficulties })
         })
         .then(response => response.json())
         .then(data => {
@@ -87,19 +96,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     window.getProblem = getProblem; // これを追加して、グローバル関数にする
 
-    // 選択された問題を取得する関数
+    // 問題を取得する関数
     function getSelectedProblem() {
         const unit = document.getElementById('unit_select').value;
         const problemNumber = document.getElementById('problem_number_input').value;
+
         fetch(`/get_selected_problem?unit=${unit}&problem_number=${problemNumber}`)
             .then(response => response.json())
             .then(data => {
-
                 if (data.error) {
                     throw new Error(data.error);
                 }
-
-                const checkEmpty = (value) => (value === "" || value === "nan" || value === undefined || value === null || value === NaN) ? "" : value;
 
                 const selectedProblemNumberElement = document.getElementById('selected_problem_number');
                 const selectedEquationContainer = document.getElementById('selected_equation_container');
@@ -109,17 +116,35 @@ document.addEventListener("DOMContentLoaded", function() {
                 const selectedQuestion4 = document.getElementById('selected_question4');
                 const selectedQuestion5 = document.getElementById('selected_question5');
                 const selectedQuestion6 = document.getElementById('selected_question6');
+                const difficultyLevelElement = document.getElementById('difficulty_level');
 
-                if (selectedProblemNumberElement && selectedEquationContainer && selectedQuestion1 && selectedQuestion2 && selectedQuestion3 && selectedQuestion4 && selectedQuestion5 && selectedQuestion6) {
+                if (selectedProblemNumberElement && selectedEquationContainer && selectedQuestion1 && selectedQuestion2 && selectedQuestion3 && selectedQuestion4 && selectedQuestion5 && selectedQuestion6 && difficultyLevelElement) {
+                    selectedProblemNumberElement.innerText = data.problem_number;
+                    selectedEquationContainer.innerHTML = wrapLatex(data.equation);
+                    selectedQuestion1.innerHTML = wrapLatex(data.q1);
+                    selectedQuestion2.innerHTML = wrapLatex(data.q2);
+                    selectedQuestion3.innerHTML = wrapLatex(data.q3);
+                    selectedQuestion4.innerHTML = wrapLatex(data.q4);
+                    selectedQuestion5.innerHTML = wrapLatex(data.q5);
+                    selectedQuestion6.innerHTML = wrapLatex(data.q6);
 
-                    selectedProblemNumberElement.innerText = checkEmpty(data.problem_number);
-                    selectedEquationContainer.innerHTML = wrapLatex(checkEmpty(data.equation));
-                    selectedQuestion1.innerHTML = wrapLatex(checkEmpty(data.q1));
-                    selectedQuestion2.innerHTML = wrapLatex(checkEmpty(data.q2));
-                    selectedQuestion3.innerHTML = wrapLatex(checkEmpty(data.q3));
-                    selectedQuestion4.innerHTML = wrapLatex(checkEmpty(data.q4));
-                    selectedQuestion5.innerHTML = wrapLatex(checkEmpty(data.q5));
-                    selectedQuestion6.innerHTML = wrapLatex(checkEmpty(data.q6));
+                    // 難易度を☆で表示
+                    let stars = "";
+                    switch (parseInt(data.difficulty)) {
+                        case 1:
+                            stars = "★☆☆☆☆"; break;
+                        case 2:
+                            stars = "★★☆☆☆"; break;
+                        case 3:
+                            stars = "★★★☆☆"; break;
+                        case 4:
+                            stars = "★★★★☆"; break;
+                        case 5:
+                            stars = "★★★★★"; break;
+                        default:
+                            stars = "難易度不明";
+                    }
+                    difficultyLevelElement.innerText = stars;
 
                     MathJax.typesetPromise([
                         selectedEquationContainer, 
@@ -129,11 +154,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         selectedQuestion4,
                         selectedQuestion5,
                         selectedQuestion6
-                    ]).then(() => {
-                        console.log('MathJax rendering complete');
-                    }).catch((err) => {
-                        console.error('MathJax rendering error:', err);
-                    });
+                    ]);
                 }
             })
             .catch(error => {
@@ -142,18 +163,29 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     window.getSelectedProblem = getSelectedProblem;
 
-    document.querySelectorAll('.accordion .title').forEach(title => {
-        title.addEventListener('click', function() {
-            const content = title.nextElementSibling;
-            debugger; // デバッガステートメントを追加
+
+    // 親スイッチが子スイッチと連動するように設定
+    document.querySelectorAll('.unit-toggle').forEach(toggle => {
+        toggle.addEventListener('change', function() {
+            const target = this.getAttribute('data-target');
+            const checkboxes = document.querySelectorAll(`#${target} .unit-checkbox`);
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked; // 親のトグルスイッチの状態に合わせて子のトグルスイッチを変更
+            });
+        });
+    });
+
+    // アコーディオンの開閉を行うイベントリスナー
+    document.querySelectorAll('.accordion .arrow-wrapper').forEach(arrow => {
+        arrow.addEventListener('click', function() {
+            const content = this.parentElement.nextElementSibling;
             if (content.style.maxHeight) {
                 content.style.maxHeight = null;
             } else {
                 content.style.maxHeight = content.scrollHeight + "px";
             }
             content.classList.toggle('content-open');
-            title.querySelector('.fa').classList.toggle('fa-rotate-180');
-            console.log('Accordion toggle:', content.classList.contains('content-open')); // デバッグ用ログ
+            this.querySelector('.fa').classList.toggle('fa-rotate-180');
         });
     });
 
@@ -164,3 +196,4 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+

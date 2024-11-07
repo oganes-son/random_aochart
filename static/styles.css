@@ -1,5 +1,6 @@
 /* CSSコード */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Palette+Mosaic&display=swap');
 
 body {
     font-family: 'Roboto', sans-serif, 'quicksand';
@@ -84,7 +85,8 @@ button:hover {
 }
 
 .sample_h_21 {
-    font-size: 1.5em;
+    font-size: 2em;
+    font-family: 'Palette Mosaic', cursive; /* タイトルにPalette Mosaicフォントを適用 */
     padding: .5em .7em;
     margin-bottom: 2em;
     position: relative;
@@ -330,7 +332,7 @@ input:checked + .slider:before {
 
 /* 右サイドバーのスタイル */
 .RightContent {
-    width: 30vw; /* サイドバーの幅を30%に固定 */
+    width: 100%; /* サイドバーの幅を30%に固定 */
     background-color: #d5f1fd; /* ごく薄い水色の背景色 */
     padding: 20px;
     box-shadow: -2px 0 5px rgba(0,0,0,0.1);
@@ -338,14 +340,13 @@ input:checked + .slider:before {
     margin-top: 0; /* タブの下に配置されるようにマージンをリセット */
     position: relative; /* 位置を固定に設定 */
     top: 0px; /* 位置を調整してランダムモード、選択モードの下に配置 */
-    right: 8%; /* 画面の右側に配置 */
     height: auto; /* 高さを調整 */
 }
 
 /* メインコンテンツとサイドバーを並べるスタイル */
 .content-and-sidebar {
     display: flex;
-    flex-direction: row; /* 横方向に並べる */
+    flex-direction: row; 
     align-items: flex-start; /* 上端を揃える */
     justify-content: space-between;
 }
@@ -353,8 +354,12 @@ input:checked + .slider:before {
 aside {
     background-color: #e3f7ff; /* ごく薄い水色の背景色 */
     padding: 20px;
-    border-radius: 8px; /* 角を丸くする（お好みで） */
+    border-radius: 20px; /* 角を丸くする（お好みで） */
     box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 軽い影を追加（お好みで） */
+    margin-bottom: 20px; 
+}
+.content-and-sidebar > aside { 
+    width: 48%; /* 幅を50%に設定（余白を考慮して調整可能） */ 
 }
 
 /* メインコンテンツのスタイル */
@@ -410,7 +415,7 @@ aside {
 }
 
 .accordion .content-open {
-    max-height: 100vh; /* 適切な値に調整 */
+    max-height: 50vh; /* 適切な値に調整 */
     background: #b3e5fc; /* アコーディオンの色を薄くした背景色 */
 }
 
@@ -476,14 +481,65 @@ aside {
         padding: 0 5%; /* 左右に5%の余白を設定 */
     }
 
+    .outer-container { 
+        padding: 0 10px; /* 左右のパディングを減らして幅を狭くする */ 
+        box-sizing: border-box; 
+    }
+    .inner-container { 
+        width: 95vw; /* 内側の幅を広げる */ 
+        padding: 0 2.5vw; /* 左右のパディングを減らす */ 
+        box-sizing: border-box;
+    }
+
     .container {
         width: 100%;
         padding: 10px;
     }
 
+    .main-content { 
+        margin-right: 0; /* サイドバーのためのマージンを削除 */ 
+    }
+
     .sample_h_21 {
-        width: 100%;
-        font-size: 1.2em;
+        width: 85vw; /* 横幅を100vwに設定 */
+        font-size: 2.2em; /* フォントサイズを大きくする */
+        padding: 0.5em 0.5em; /* パディングを増やして縦幅を調整 */
+        margin-bottom: 2em;
+        position: relative;
+        background-color: #ace8fc;
+        border-left: solid 2em #02688a;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #0c0031;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+    }
+
+    .sample_h_21:before {
+        position: absolute;
+        content: "\f303";
+        font-family: "Font Awesome 5 Free";
+        padding: 0em;
+        font-weight: 900;
+        left: -1.5em;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        background-color: #02688a;
+        color: #ffffff;
+    }
+
+    .sample_h_21, .tab-label, .center-align { 
+        margin-left: 0; /* 左端に揃える */
+    }
+
+    .left-align {
+        text-align: left;
+        margin-left: 0;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        max-width: 100%;
     }
 
     input[type="password"] {
@@ -497,48 +553,20 @@ aside {
     }
 
     .content-and-sidebar {
-        display: flex;
-        flex-direction: column; /* 縦方向に並べる */
+        display: flex; 
+        flex-direction: column; /* 縦方向に並べる */ 
+        align-items: flex-start; /* 上端を揃える */ 
+        justify-content: flex-start;
     }
-
-    .accordion {
-        width: 60vw; /* 横幅を大きくする */
-        margin: auto; /* 中央に配置 */
-        margin-top: 20px;
-    }
-
-    .main-content {
-        order: 1; /* メインコンテンツを先に表示 */
-    }
-
-    #equation_container,
-    #question1,
-    #question2,
-    #question3,
-    #question4 {
-        order: 2; /* これらの要素をサイドコンテンツの前に表示 */
+    .content-and-sidebar > aside { 
+        width: 100%; /* 幅を100%に設定 */
     }
 
     .RightContent {
-        width: 100%; /* 幅を100%に設定 */
-        position: relative; /* 位置を相対に設定 */
-        top: auto; /* 位置をリセット */
-        right: auto; /* 位置をリセット */
-        margin-top: 20px; /* 上部に余白を追加 */
-        order: 3;
+        width: 100%; 
+        margin-top: 20px;
     }
 
-    label.toggle-switch:has(input[type="checkbox"]) {
-        --font-size: 16px; /* スクリーン幅が小さいときの基本サイズ */
-        font-size: var(--font-size);
-        line-height: calc(var(--font-size) + 2px);
-    }
-
-    label.toggle-switch > input[type="checkbox"] {
-        font-size: 1.2em; /* フォントサイズを小さくする */
-        width: 1.6em; /* 幅を小さくする */
-        height: 0.8em; /* 高さを小さくする */
-    }
     #unit_select {
         width: 50vw; /* モバイルの場合のセレクトボックスの幅を設定 */
         padding: 8px;
@@ -546,7 +574,57 @@ aside {
     .selection-mode select,
     .selection-mode input,
     .selection-mode button {
-        width: 50vw; /* モバイルの場合の幅を設定 */
-        padding: 8px;
+        width: 90%; /* モバイルの場合の幅を設定 */
+        padding: 5px;
     }
+
+    .accordion {
+        display: grid;
+        width: 100%; /* アコーディオンコンテナの幅を100%に */
+        grid-template-columns: 38vw 38vw; /* 2列に設定 */
+        grid-column-gap: 5px; /* 列間の隙間 */
+        grid-row-gap: 5px; /* 行間の隙間 */
+        box-sizing: border-box; /* paddingとborderを含む幅調整 */
+    }
+
+    .accordion-item1, 
+    .accordion-item2, 
+    .accordion-item3, 
+    .accordion-item4, 
+    .accordion-item5, 
+    .accordion-item6 {
+        width: 100%; /* 各アコーディオンアイテムの幅を100%に */
+        margin: 0; /* マージンをリセット */
+    }
+
+    .accordion .content-text { 
+        font-size: 12px; /* コンテンツ部分のフォントサイズを12pxに設定 */ 
+        text-align: left;
+    } 
+    .accordion .content-text .toggle-text { 
+        font-size: 12px; /* 各トグルスイッチのテキスト部分も12pxに設定 */ 
+        text-align: left;
+    }
+    .accordion .content { 
+        padding: 0; /* コンテンツ全体のパディングをリセット */
+    }
+
+    aside {
+        background-color: #e3f7ff; /* 薄い水色の背景色 */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        width: 100%; /* 2つのアコーディオンを含む幅に調整 */
+        box-sizing: border-box; /* paddingを含む幅調整 */
+    }
+    .accordion-container { 
+        display: flex; 
+        flex-wrap: wrap; 
+        justify-content: space-between; 
+        width: 100%; /* コンテナが画面の幅に収まるように調整 */
+    } 
 }
+
+
+
+
