@@ -433,7 +433,7 @@ aside {
 .sidebar { 
     display: flex; 
     flex-direction: column; /* 縦方向に並べる */ 
-    width: 30vw; /* 幅を設定 */ 
+    width: 25vw; /* 幅を設定 */ 
     max-width: 300px; /* 最大幅を設定してはみ出さないように */ 
     box-sizing: border-box;
 }
