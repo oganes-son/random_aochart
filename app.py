@@ -19,10 +19,6 @@ except FileNotFoundError as e:
 def index():
     return render_template('index.html')
 
-@app.route('/units.html')
-def serve_units():
-    return render_template('units.html')
-
 @app.route('/get_problem', methods=['POST'])
 def get_problem():
     try:

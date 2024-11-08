@@ -37,11 +37,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // 選択された単元を収集
         document.querySelectorAll('.unit-checkbox:checked').forEach(checkbox => {
-            selectedUnits.push(checkbox.parentElement.textContent.trim());
+            // selectedUnits.push(checkbox.parentElement.textContent.trim());
+            selectedUnits.push(checkbox.dataset.value);
         });
         // 選択された難易度を収集 
         document.querySelectorAll('#difficult .unit-checkbox:checked').forEach(checkbox => { 
-            selectedDifficulties.push(checkbox.getAttribute('data-difficulty')); 
+            // selectedDifficulties.push(checkbox.getAttribute('data-difficulty')); 
+            selectedDifficulties.push(checkbox.dataset.difficulty);
         });
 
         if (selectedUnits.length === 0) {
