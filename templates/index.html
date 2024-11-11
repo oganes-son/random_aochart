@@ -32,12 +32,14 @@
         <div class="inner-container">
             <div class="container">
                 <div id="login">
-                    <h2>パスワードを入力してください</h2>
-                    <input type="password" id="password" placeholder="パスワード">
-                    <button onclick="checkPassword()">送信</button>
+                    <h2 class="password-text">パスワードを入力してください</h2>
+                    <div class="login-form">
+                        <input type="password" id="password" placeholder="パスワード">
+                        <button onclick="checkPassword()">送信</button>
+                    </div>
                 </div>
                 <div id="content" style="display: none;">
-                    <h1 class="sample_h_21">あおちゃーと。</h1>
+                    <h1 class="sample_h_21">study ao chart</h1>
                     <div class="tab-wrap">
                         <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" />
                         <label class="tab-label" for="TAB-01">ランダムモード</label>
@@ -72,7 +74,7 @@
                                                         <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数I集合と命題" checked><span class="slider"></span><span class="toggle-text">集合と命題</span></label>
                                                         <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数I2次関数" checked><span class="slider"></span><span class="toggle-text">2次関数</span></label>
                                                         <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数I図形と計量" checked><span class="slider"></span><span class="toggle-text">図形と計量</span></label>
-                                                        <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数Iデータの分析"checked><span class="slider"></span><span class="toggle-text">データの分析（準備中）</span></label>
+                                                        <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数Iデータの分析"><span class="slider"></span><span class="toggle-text">データの分析（準備中）</span></label>
                                                     </div>    
                                                 </div>
                                             </div>
@@ -83,10 +85,10 @@
                                                 </div>
                                                 <div class="content" id="mathA-checkboxes">
                                                     <div class="content-text">
-                                                        <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数A場合の数" checked><span class="slider"></span><span class="toggle-text">場合の数（準備中）</span></label>
+                                                        <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数A場合の数" checked><span class="slider"></span><span class="toggle-text">場合の数</span></label>
                                                         <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数A確率" checked><span class="slider"></span><span class="toggle-text">確率</span></label>
-                                                        <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数A図形の性質" checked><span class="slider"></span><span class="toggle-text">図形の性質（準備中）</span></label>
-                                                        <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数A数学と人間の活動" checked><span class="slider"></span><span class="toggle-text">数学と人間の活動（準備中）</span></label>
+                                                        <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数A図形の性質" checked><span class="slider"></span><span class="toggle-text">図形の性質</span></label>
+                                                        <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数A数学と人間の活動"><span class="slider"></span><span class="toggle-text">数学と人間の活動（準備中）</span></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -114,8 +116,8 @@
                                                 </div>
                                                 <div class="content" id="mathB-checkboxes">
                                                     <div class="content-text">
-                                                        <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数B数列" checked><span class="slider"></span><span class="toggle-text">数列（準備中）</span></label>
-                                                        <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数B統計的な推測" checked><span class="slider"></span><span class="toggle-text">統計的な推測（準備中）</span></label>
+                                                        <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数B数列" checked><span class="slider"></span><span class="toggle-text">数列</span></label>
+                                                        <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数B統計的な推測"><span class="slider"></span><span class="toggle-text">統計的な推測（準備中）</span></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -142,10 +144,10 @@
                                                 </div>
                                                 <div class="content" id="mathC-checkboxes">
                                                     <div class="content-text">
-                                                    <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数C平面上のベクトル" checked><span class="slider"></span><span class="toggle-text">平面上のベクトル（準備中）</span></label>
-                                                    <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数C空間のベクトル" checked><span class="slider"></span><span class="toggle-text">空間のベクトル（準備中）</span></label>
-                                                    <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数C複素数平面" checked><span class="slider"></span><span class="toggle-text">複素数平面（準備中）</span></label>
-                                                    <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数C式と曲線" checked><span class="slider"></span><span class="toggle-text">式と曲線（準備中）</span></label>
+                                                    <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数C平面上のベクトル" checked><span class="slider"></span><span class="toggle-text">平面上のベクトル</span></label>
+                                                    <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数C空間のベクトル" checked><span class="slider"></span><span class="toggle-text">空間のベクトル</span></label>
+                                                    <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数C複素数平面" checked><span class="slider"></span><span class="toggle-text">複素数平面</span></label>
+                                                    <label class="simple-toggle-switch"><input type="checkbox" class="unit-checkbox" data-value="数C式と曲線" checked><span class="slider"></span><span class="toggle-text">式と曲線</span></label>
                                                 </div>                                      
                                             </div>
                                         </div>
@@ -195,7 +197,7 @@
                                     <option value="数II指数関数と対数関数">指数関数と対数関数(169-194)</option>
                                     <option value="数II微分法">微分法(195-234)</option>
                                     <option value="数II積分法">積分法(235-262)</option>
-                                    <option value="数B数列">数列（準備中）(1-61)</option>
+                                    <option value="数B数列">数列(1-61)</option>
                                     <option value="数B統計的な推測">統計的な推測（準備中）(62-94)</option>
 
                                     <option value="数III関数">関数(1-16)</option>
@@ -205,9 +207,9 @@
                                     <option value="数III積分法">数III積分法(129-175)</option>
                                     <option value="数III積分法の応用">積分法の応用(176-215)</option>
                                     <option value="数C平面上のベクトル">平面上のベクトル(1-43)</option>
-                                    <option value="数C空間のベクトル">空間のベクトル（準備中）(44-89)</option>
-                                    <option value="数C複素数平面">複素数平面（準備中）(90-135)</option>
-                                    <option value="数C式と曲線">式と曲線（準備中）(136-179)</option>
+                                    <option value="数C空間のベクトル">空間のベクトル(44-89)</option>
+                                    <option value="数C複素数平面">複素数平面(90-135)</option>
+                                    <option value="数C式と曲線">式と曲線(136-179)</option>
 
                                 </select>
                                 <input type="number" id="problem_number_input" placeholder="問題番号を入力">

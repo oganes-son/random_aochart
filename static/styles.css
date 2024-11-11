@@ -49,11 +49,14 @@ div {
 }
 
 input[type="password"] {
-    width: 20vw; /* PCの場合の幅を20vwに設定 */
+    width: 10vw; /* PCの場合の幅を20vwに設定 */
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 1em;
+    font-family: 'Yomogi', cursive;
+    color: #105369;
 }
 
 button {
@@ -72,6 +75,17 @@ button:hover {
     background-color: #4682b4;
 }
 
+.login-form {
+    display: flex;
+    flex-direction: column; /* 縦に配置 */
+    align-items: center; /* 中央揃え */
+}
+
+.login-form input,
+.login-form button {
+    margin-bottom: 10px; /* フィールドとボタンの間にスペースを追加 */
+}
+
 .center-align {
     text-align: center;
 }
@@ -82,6 +96,12 @@ button:hover {
     white-space: pre-wrap;
     overflow-wrap: break-word;
     max-width: 100%;
+}
+
+.password-text{
+    font-size: 1.5em;
+    font-family: 'Yomogi', cursive;
+    color: #105369;
 }
 
 .sample_h_21 {
@@ -152,6 +172,7 @@ label.toggle-switch > input[type="checkbox"] {
     width: 2em;
     height: 1em;
     padding: 0;
+    margin-left: 0; /* 左側の余白を0に設定 */
     appearance: none;
     -webkit-appearance: none;
     -ms-appearance: none;
@@ -309,6 +330,11 @@ label.toggle-switch .toggle-text {
 .error-message {
     color: red;
     font-weight: bold;
+}
+
+/* スライダーの左側の余白を減らす */ 
+.slider { 
+    margin-left: 0; /* 左側の余白を0に設定 */ 
 }
 
 input:checked + .slider {
@@ -610,12 +636,15 @@ aside {
     }
 
     input[type="password"] {
-        width: 50vw; /* 携帯の場合の幅を50vwに設定 */
+        width: 30vw; /* 携帯の場合の幅を50vwに設定 */
         padding: 8px;
+        font-size: 1.5em;
+        font-family: 'Yomogi', cursive;
+        color: #105369;
     }
 
     button {
-        width: 50vw; /* 携帯の場合の幅を50vwに設定 */
+        width: 30vw; /* 携帯の場合の幅を50vwに設定 */
         padding: 8px;
     }
 
