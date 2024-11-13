@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return `\\(${match}\\)`;
         });
     }
-    
+
     // 問題を取得する関数
     function getProblem() {
         const selectedUnits = [];
@@ -37,12 +37,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // 選択された単元を収集
         document.querySelectorAll('.unit-checkbox:checked').forEach(checkbox => {
-            // selectedUnits.push(checkbox.parentElement.textContent.trim());
             selectedUnits.push(checkbox.dataset.value);
         });
         // 選択された難易度を収集 
         document.querySelectorAll('#difficult .unit-checkbox:checked').forEach(checkbox => { 
-            // selectedDifficulties.push(checkbox.getAttribute('data-difficulty')); 
             selectedDifficulties.push(checkbox.dataset.difficulty);
         });
 
@@ -61,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.json())
         .then(data => {
             if (data.error) {
+                console.error('Server error:', data.error);
                 alert('Server error: ' + data.error);
                 return;
             }
@@ -72,6 +71,8 @@ document.addEventListener("DOMContentLoaded", function() {
             const question4 = document.getElementById('question4');
             const question5 = document.getElementById('question5');
             const question6 = document.getElementById('question6');
+            const problemImageContainer = document.getElementById('problem_image_container');
+
             if (problemNumberElement && equationContainer && question1 && question2 && question3 && question4 && question5 && question6) {
                 problemNumberElement.innerText = data.problem_number;
                 equationContainer.innerHTML = wrapLatex(data.equation);
@@ -81,6 +82,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 question4.innerHTML = wrapLatex(data.q4);
                 question5.innerHTML = wrapLatex(data.q5);
                 question6.innerHTML = wrapLatex(data.q6);
+
+                if (data.image_flag === 1 && problemImageContainer) { 
+                    problemImageContainer.innerHTML = `<img src="/static/images/${data.image_number}.png" alt="問題画像">`; 
+                } else if (problemImageContainer) { 
+                    problemImageContainer.innerHTML = ""; // 画像がない場合は空にする 
+                }
+
                 MathJax.typesetPromise([
                     equationContainer, 
                     question1, 
@@ -119,6 +127,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const selectedQuestion5 = document.getElementById('selected_question5');
                 const selectedQuestion6 = document.getElementById('selected_question6');
                 const difficultyLevelElement = document.getElementById('difficulty_level');
+                const selectedImageContainer = document.getElementById('selected_problem_image_container');
 
                 if (selectedProblemNumberElement && selectedEquationContainer && selectedQuestion1 && selectedQuestion2 && selectedQuestion3 && selectedQuestion4 && selectedQuestion5 && selectedQuestion6 && difficultyLevelElement) {
                     selectedProblemNumberElement.innerText = data.problem_number;
@@ -129,6 +138,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     selectedQuestion4.innerHTML = wrapLatex(data.q4);
                     selectedQuestion5.innerHTML = wrapLatex(data.q5);
                     selectedQuestion6.innerHTML = wrapLatex(data.q6);
+
+                    if (data.image_flag === 1 && selectedImageContainer) { 
+                        selectedImageContainer.innerHTML = `<img src="/static/images/${data.image_number}.png" alt="問題画像">`; 
+                    } else if (selectedImageContainer) { 
+                        selectedImageContainer.innerHTML = ""; // 画像がない場合は空にする
+                    }
 
                     // 難易度を☆で表示
                     let stars = "";
@@ -165,7 +180,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     window.getSelectedProblem = getSelectedProblem;
 
-
     // 親スイッチが子スイッチと連動するように設定
     document.querySelectorAll('.unit-toggle').forEach(toggle => {
         toggle.addEventListener('change', function() {
@@ -194,7 +208,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // トグルスイッチの状態を確認するためにイベントリスナーを追加
     document.querySelectorAll('.unit-checkbox').forEach(checkbox => {
         checkbox.addEventListener('change', function() {
-            console.log('Checkbox changed:', this.checked);
         });
     });
 });
