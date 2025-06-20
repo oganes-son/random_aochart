@@ -5,7 +5,11 @@ import pandas as pd
 import re
 import traceback
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(
+    __name__,
+    template_folder='../templates',
+    static_folder='../static'
+)
 CORS(app)
 
 # --- 2つのExcelファイルを読み込み (ファイル名を更新) ---
