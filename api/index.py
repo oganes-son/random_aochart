@@ -5,27 +5,22 @@ import pandas as pd
 import re
 import traceback
 
-app = Flask(
-    __name__,
-    template_folder='../templates',
-    static_folder='../static'
-)
+app = Flask(__name__)
 CORS(app)
 
-# --- 2つのExcelファイルを読み込み (ファイル名を更新) ---
+# --- 2つのExcelファイルを読み込み ---
 df_chart = None
 df_ex = None
 try:
-    # header=None を指定して、1行目からデータとして読み込む
-    chart_file_path = os.path.join(os.path.dirname(__file__), 'aochart.xlsx')
+    # Vercelではプロジェクトルートが基準になるため、相対パスで指定
+    chart_file_path = 'aochart.xlsx'
     df_chart = pd.read_excel(chart_file_path, dtype=str, header=None)
     print("Chart Excel file loaded successfully")
 except FileNotFoundError as e:
     print(f"Chart file not found: {e}")
 
 try:
-    # header=None を指定
-    ex_file_path = os.path.join(os.path.dirname(__file__), 'aochart_ex.xlsx')
+    ex_file_path = 'aochart_ex.xlsx'
     df_ex = pd.read_excel(ex_file_path, dtype=str, header=None)
     print("Exercise Excel file loaded successfully")
 except FileNotFoundError as e:
