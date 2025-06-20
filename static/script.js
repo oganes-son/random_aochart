@@ -128,7 +128,6 @@ document.addEventListener("DOMContentLoaded", function() {
   
     // --- 選択モードの処理 ---
     window.getSelectedProblem = function() {
-      // ▼▼▼【修正点】新しいUIから値を取得するように変更 ▼▼▼
       const selectedBook = document.getElementById('select_book_type').value;
       const unitSelect = document.getElementById(selectedBook === 'chart' ? 'unit_select_chart' : 'unit_select_ex');
       const unit = unitSelect.value;
@@ -148,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(error => { console.error("問題の取得中にエラーが発生しました:", error); alert("問題の取得中にエラーが発生しました。コンソールを確認してください。"); });
     }
 
-    // ▼▼▼【修正点】選択モードの問題集ドロップダウンのイベントリスナー ▼▼▼
+    // 選択モードの問題集ドロップダウンのイベントリスナー
     document.getElementById('select_book_type').addEventListener('change', function() {
         const chartSelect = document.getElementById('unit_select_chart');
         const exSelect = document.getElementById('unit_select_ex');

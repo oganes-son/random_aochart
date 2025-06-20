@@ -126,84 +126,82 @@
             <label class="tab-label" for="TAB-02">選択モード</label>
             <div class="tab-content">
               <!-- ▼▼▼【修正点】選択モードのUI構造を刷新 ▼▼▼ -->
-              <div class="selection-controls">
-                <div class="control-group">
-                  <label for="select_book_type">問題集を選択:</label>
-                  <select id="select_book_type">
-                      <option value="chart" selected>例題</option>
-                      <option value="ex">EXERCISE</option>
-                  </select>
-                </div>
+              <div class="selection-mode">
+                <div class="selection-controls-row">
+                    <div class="control-group">
+                      <label for="select_book_type">問題集を選択:</label>
+                      <select id="select_book_type">
+                          <option value="chart" selected>例題</option>
+                          <option value="ex">EXERCISE</option>
+                      </select>
+                    </div>
 
-                <div class="control-group">
-                  <label>単元を選択:</label>
-                  <select id="unit_select_chart">
-                    <option value="数I数と式">数と式(1-43)</option>
-                    <option value="数I集合と命題">集合と命題(44-63)</option>
-                    <option value="数I2次関数">2次関数(64-132)</option>
-                    <option value="数I図形と計量">図形と計量(133-174)</option>
-                    <option value="数Iデータの分析">データの分析(175-194)</option>
-                    <option value="数A場合の数">場合の数(1-34)</option>
-                    <option value="数A確率">確率(35-69)</option>
-                    <option value="数A図形の性質">図形の性質(70-109)</option>
-                    <option value="数A数学と人間の活動">数学と人間の活動（準備中）(110-156)</option>
-                    <option value="数II式と証明">式と証明(1-34)</option>
-                    <option value="数II複素数と方程式">複素数と方程式(35-70)</option>
-                    <option value="数II図形と方程式">図形と方程式(71-131)</option>
-                    <option value="数II三角関数">三角関数(132-168)</option>
-                    <option value="数II指数関数と対数関数">指数関数と対数関数(169-194)</option>
-                    <option value="数II微分法">微分法(195-234)</option>
-                    <option value="数II積分法">積分法(235-262)</option>
-                    <option value="数B数列">数列(1-61)</option>
-                    <option value="数B統計的な推測">統計的な推測(62-94)</option>
-                    <option value="数III関数">関数(1-16)</option>
-                    <option value="数III関数">極限(17-59)</option>
-                    <option value="数III微分法">数III微分法(60-80)</option>
-                    <option value="数III微分法の応用">微分法の応用(81-128)</option>
-                    <option value="数III積分法">数III積分法(129-175)</option>
-                    <option value="数III積分法の応用">積分法の応用(176-215)</option>
-                    <option value="数C平面上のベクトル">平面上のベクトル(1-43)</option>
-                    <option value="数C空間のベクトル">空間のベクトル(44-89)</option>
-                    <option value="数C複素数平面">複素数平面(90-135)</option>
-                    <option value="数C式と曲線">式と曲線(136-179)</option>
-                  </select>
-                  <select id="unit_select_ex" style="display: none;">
-                    <option value="数と式">数と式(1~35)</option>
-                    <option value="集合と命題">集合と命題(36~50)</option>
-                    <option value="2次関数">2次関数(51~94)</option>
-                    <option value="図形と計量">図形と計量(95~125)</option>
-                    <option value="データの分析">データの分析(126~134)</option>
-                    <option value="場合の数">場合の数(1~26)</option>
-                    <option value="確率">確率(27~50)</option>
-                    <option value="図形の性質">図形の性質(51~76)</option>
-                    <option value="数学と人間の活動">数学と人間の活動(77~107)※準備中</option>
-                    <option value="式と証明">式と証明(1~22)</option>
-                    <option value="複素数と方程式">複素数と方程式(23~47)</option>
-                    <option value="図形と方程式">図形と方程式(48~81)</option>
-                    <option value="三角関数">三角関数(82~105)</option>
-                    <option value="指数関数と対数関数">指数関数と対数関数(106~125)</option>
-                    <option value="数II微分法">数II微分法(126~147)</option>
-                    <option value="数II積分法">数II積分法(148~159)</option>
-                    <option value="関数">関数(1~12)</option>
-                    <option value="極限">極限(13~47)</option>
-                    <option value="数III微分法">数III微分法(48~110)</option>
-                    <option value="数III積分法">数III積分法(111~176)</option>
-                    <option value="平面上のベクトル">平面上のベクトル(1~29)</option>
-                    <option value="空間のベクトル">空間のベクトル(30~57)</option>
-                    <option value="複素数平面">複素数平面(58~86)</option>
-                    <option value="式と曲線">式と曲線(87~121)</option>
-                  </select>
-                </div>
+                    <div class="control-group">
+                      <label>単元を選択:</label>
+                      <select id="unit_select_chart">
+                        <option value="数I数と式">数と式(1-43)</option>
+                        <option value="数I集合と命題">集合と命題(44-63)</option>
+                        <option value="数I2次関数">2次関数(64-132)</option>
+                        <option value="数I図形と計量">図形と計量(133-174)</option>
+                        <option value="数Iデータの分析">データの分析(175-194)</option>
+                        <option value="数A場合の数">場合の数(1-34)</option>
+                        <option value="数A確率">確率(35-69)</option>
+                        <option value="数A図形の性質">図形の性質(70-109)</option>
+                        <option value="数A数学と人間の活動">数学と人間の活動（準備中）(110-156)</option>
+                        <option value="数II式と証明">式と証明(1-34)</option>
+                        <option value="数II複素数と方程式">複素数と方程式(35-70)</option>
+                        <option value="数II図形と方程式">図形と方程式(71-131)</option>
+                        <option value="数II三角関数">三角関数(132-168)</option>
+                        <option value="数II指数関数と対数関数">指数関数と対数関数(169-194)</option>
+                        <option value="数II微分法">微分法(195-234)</option>
+                        <option value="数II積分法">積分法(235-262)</option>
+                        <option value="数B数列">数列(1-61)</option>
+                        <option value="数B統計的な推測">統計的な推測(62-94)</option>
+                        <option value="数III関数">関数(1-16)</option>
+                        <option value="数III関数">極限(17-59)</option>
+                        <option value="数III微分法">数III微分法(60-80)</option>
+                        <option value="数III微分法の応用">微分法の応用(81-128)</option>
+                        <option value="数III積分法">数III積分法(129-175)</option>
+                        <option value="数III積分法の応用">積分法の応用(176-215)</option>
+                        <option value="数C平面上のベクトル">平面上のベクトル(1-43)</option>
+                        <option value="数C空間のベクトル">空間のベクトル(44-89)</option>
+                        <option value="数C複素数平面">複素数平面(90-135)</option>
+                        <option value="数C式と曲線">式と曲線(136-179)</option>
+                      </select>
+                      <select id="unit_select_ex" style="display: none;">
+                        <option value="数と式">数と式(1~35)</option>
+                        <option value="集合と命題">集合と命題(36~50)</option>
+                        <option value="2次関数">2次関数(51~94)</option>
+                        <option value="図形と計量">図形と計量(95~125)</option>
+                        <option value="データの分析">データの分析(126~134)</option>
+                        <option value="場合の数">場合の数(1~26)</option>
+                        <option value="確率">確率(27~50)</option>
+                        <option value="図形の性質">図形の性質(51~76)</option>
+                        <option value="数学と人間の活動">数学と人間の活動(77~107)※準備中</option>
+                        <option value="式と証明">式と証明(1~22)</option>
+                        <option value="複素数と方程式">複素数と方程式(23~47)</option>
+                        <option value="図形と方程式">図形と方程式(48~81)</option>
+                        <option value="三角関数">三角関数(82~105)</option>
+                        <option value="指数関数と対数関数">指数関数と対数関数(106~125)</option>
+                        <option value="数II微分法">数II微分法(126~147)</option>
+                        <option value="数II積分法">数II積分法(148~159)</option>
+                        <option value="関数">関数(1~12)</option>
+                        <option value="極限">極限(13~47)</option>
+                        <option value="数III微分法">数III微分法(48~110)</option>
+                        <option value="数III積分法">数III積分法(111~176)</option>
+                        <option value="平面上のベクトル">平面上のベクトル(1~29)</option>
+                        <option value="空間のベクトル">空間のベクトル(30~57)</option>
+                        <option value="複素数平面">複素数平面(58~86)</option>
+                        <option value="式と曲線">式と曲線(87~121)</option>
+                      </select>
+                    </div>
 
-                <div class="control-group">
-                    <label for="problem_number_input">問題番号:</label>
-                    <input type="number" id="problem_number_input" placeholder="問題番号">
+                    <div class="control-group">
+                        <label for="problem_number_input">問題番号:</label>
+                        <input type="number" id="problem_number_input" placeholder="問題番号">
+                    </div>
                 </div>
-                
-                <div class="control-group">
-                    <label>&nbsp;</label> 
-                    <button class="main-action-button" onclick="getSelectedProblem()">問題を表示</button>
-                </div>
+                <button class="main-action-button" onclick="getSelectedProblem()">問題を表示</button>
               </div>
               
               <div class="selected-problem-display">
@@ -225,3 +223,4 @@
   <script src="static/script_integration.js"></script>
 </body>
 </html>
+

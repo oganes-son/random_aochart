@@ -82,7 +82,7 @@ button:hover {
     width: 100%;
     max-width: 410px;
     display: block;
-    margin-left: auto;
+    margin-left: 0; /* 左揃え */
     margin-right: auto;
 }
 
@@ -110,7 +110,8 @@ button:hover {
     align-items: center;
 }
 
-.login-form input {
+.login-form input,
+.login-form button {
     margin-bottom: 10px;
 }
 
@@ -142,6 +143,7 @@ button:hover {
     max-width: 100%;
 }
 
+/* 問題詳細の左マージンとパディングをリセット */
 #problem_details {
     text-align: left;
     max-width: 100%;
@@ -509,12 +511,16 @@ aside {
 /* --- 選択モードのレイアウトスタイル --- */
 .selection-controls {
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    gap: 15px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #eee;
+    flex-direction: column; /* 全体を縦に積む */
+    gap: 20px;
     margin-bottom: 20px;
+}
+
+.selection-controls-row {
+    display: flex;
+    flex-wrap: wrap; /* 画面幅が足りない場合に折り返す */
+    align-items: flex-end; /* 要素の下端を揃える */
+    gap: 15px; /* 要素間の隙間 */
 }
 
 .control-group {
@@ -525,7 +531,6 @@ aside {
 
 .control-group:nth-child(2) { flex: 3; }
 .control-group:nth-child(1), .control-group:nth-child(3) { flex: 2; }
-.control-group:nth-child(4) { flex: 1; }
 
 .control-group label {
     font-weight: bold;
@@ -542,11 +547,13 @@ aside {
     font-size: 1em;
 }
 
-.control-group .main-action-button {
+.selection-mode .main-action-button {
     width: 100%;
-    margin: 0;
-    padding: 10px;
+    max-width: none;
+    margin-top: 10px;
+    margin-left: 0;
 }
+
 
 /* --- 履歴機能のスタイル --- */
 .history-table-container {
@@ -620,7 +627,7 @@ aside {
 
     input[type="password"],
     .login-form button {
-        width: 50vw; /* モバイルでの入力欄とボタンの幅 */
+        width: 50vw;
         max-width: 300px;
     }
     
@@ -633,7 +640,7 @@ aside {
         margin-right: 0;
     }
     
-    .selection-controls {
+    .selection-controls-row {
         flex-direction: column;
         align-items: stretch;
         gap: 20px;
@@ -641,8 +648,7 @@ aside {
     .control-group,
     .control-group:nth-child(1),
     .control-group:nth-child(2),
-    .control-group:nth-child(3),
-    .control-group:nth-child(4) {
+    .control-group:nth-child(3) {
         flex: none;
         min-width: auto;
     }

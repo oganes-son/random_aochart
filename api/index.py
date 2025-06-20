@@ -5,32 +5,37 @@ import pandas as pd
 import re
 import traceback
 
-# Vercel環境では、Flaskはプロジェクトのルートからの相対パスで
-# templatesフォルダなどを自動的に見つけるため、パスの指定は不要です。
-app = Flask(__name__)
-CORS(app)
-
-# --- ▼▼▼【修正点】Vercel環境でファイルを確実に見つけるためのパス設定 ▼▼▼ ---
-# このスクリプト(api/index.py)があるディレクトリを取得
+# --- Vercel環境とローカル環境の両方で動作するためのパス設定 ---
+# このスクリプト(api/index.py)があるディレクトリの絶対パスを取得
 _current_dir = os.path.dirname(os.path.abspath(__file__))
-# プロジェクトのルートディレクトリ（1つ上の階層）を取得
+# プロジェクトのルートディレクトリ（1つ上の階層）のパスを取得
 _root_dir = os.path.dirname(_current_dir)
+
+# Flaskアプリを初期化する際に、プロジェクトのルートパスを明示的に指定
+# これにより、templatesやstaticフォルダを正しく見つけられるようになる
+app = Flask(
+    __name__,
+    root_path=_root_dir, # プロジェクトルートを明示
+    static_folder='static',
+    template_folder='templates'
+)
+CORS(app)
 
 # --- 2つのExcelファイルを読み込み、列名を明示的に設定 ---
 df_chart = None
 df_ex = None
-# 全ての列に名前を定義
-column_names = [
-    'col0', 'unit_name', 'difficulty', 'problem_number', 'problem_text', 
-    'image_flag', 'image_number', 'col7', 'col8', 'col9'
-]
+# Excelの列番号とプログラムで使う名前の対応表
+column_mapping = {
+    0: 'col0', 1: 'unit_name', 2: 'difficulty', 3: 'problem_number', 4: 'problem_text', 
+    5: 'image_flag', 6: 'image_number', 7: 'col7', 8: 'col8', 9: 'col9'
+}
 
 try:
     # プロジェクトルートからの絶対パスでファイルを指定
     chart_file_path = os.path.join(_root_dir, 'aochart.xlsx')
     df_chart = pd.read_excel(chart_file_path, dtype=str, header=None)
     # 読み込んだデータに列名を割り当てる
-    df_chart.columns = column_names
+    df_chart = df_chart.rename(columns=column_mapping)
     print("Chart Excel file loaded successfully")
 except FileNotFoundError as e:
     print(f"Chart file not found: {e}")
@@ -40,12 +45,11 @@ try:
     ex_file_path = os.path.join(_root_dir, 'aochart_ex.xlsx')
     df_ex = pd.read_excel(ex_file_path, dtype=str, header=None)
     # こちらにも同様に列名を付ける
-    df_ex.columns = column_names
+    df_ex = df_ex.rename(columns=column_mapping)
     print("Exercise Excel file loaded successfully")
 except FileNotFoundError as e:
     print(f"Exercise file not found: {e}")
     print(f"Looked for: {ex_file_path}")
-# --- ▲▲▲ 修正ここまで ▲▲▲ ---
 
 
 def process_latex_text(problem_text):
@@ -190,7 +194,6 @@ def get_problem():
         
         target_df = pd.concat(df_list, ignore_index=True)
 
-        # ▼▼▼【修正点】列の名前でアクセスするように変更 ▼▼▼
         target_df['difficulty'] = pd.to_numeric(target_df['difficulty'], errors='coerce').fillna(0).astype(int)
         matching_rows = target_df[
             (target_df['unit_name'].isin(selected_units)) &
@@ -242,7 +245,6 @@ def get_selected_problem():
             if target_df is None: return jsonify(error="問題データ(例題)が読み込まれていません。")
         if not selected_unit or not problem_number: return jsonify(error="単元と問題番号が指定されていません。")
         
-        # ▼▼▼【修正点】列の名前でアクセスするように変更 ▼▼▼
         target_df['problem_number'] = target_df['problem_number'].astype(str)
         problem_number = str(problem_number)
         row = target_df[(target_df['unit_name'] == selected_unit) & (target_df['problem_number'] == problem_number)]
