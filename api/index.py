@@ -5,16 +5,25 @@ import pandas as pd
 import re
 import traceback
 
+# Vercel環境では、Flaskはプロジェクトのルートからの相対パスで
+# templatesフォルダなどを自動的に見つけるため、パスの指定は不要です。
 app = Flask(__name__)
 CORS(app)
 
 # --- 2つのExcelファイルを読み込み ---
 df_chart = None
 df_ex = None
+column_names = [
+    'col0', 'unit_name', 'difficulty', 'problem_number', 'problem_text', 
+    'image_flag', 'image_number', 'col7', 'col8', 'col9'
+]
+
 try:
     # Vercelではプロジェクトルートが基準になるため、相対パスで指定
     chart_file_path = 'aochart.xlsx'
     df_chart = pd.read_excel(chart_file_path, dtype=str, header=None)
+    # 列に名前を付けて、番号ではなく名前でアクセスできるようにする
+    df_chart.columns = column_names
     print("Chart Excel file loaded successfully")
 except FileNotFoundError as e:
     print(f"Chart file not found: {e}")
@@ -22,9 +31,12 @@ except FileNotFoundError as e:
 try:
     ex_file_path = 'aochart_ex.xlsx'
     df_ex = pd.read_excel(ex_file_path, dtype=str, header=None)
+    # こちらにも同様に列名を付ける
+    df_ex.columns = column_names
     print("Exercise Excel file loaded successfully")
 except FileNotFoundError as e:
     print(f"Exercise file not found: {e}")
+
 
 def process_latex_text(problem_text):
     """
@@ -38,27 +50,21 @@ def process_latex_text(problem_text):
     text = re.sub(r'\$([^$]*?)\$', r'\\(\1\\)', text)
     
     # 二重ラップを解消
-    while r'\(\(' in text and r'\)\)' in text:
-        text = text.replace(r'\(\(', r'\(')
-        text = text.replace(r'\)\)', r'\)')
+    while r'\(\(' in text: text = text.replace(r'\(\(', r'\(')
+    while r'\)\)' in text: text = text.replace(r'\)\)', r'\)')
 
     # デリミタ周りの一貫しないスペースを正規化（削除）
-    text = text.replace(r'\ (', r'\(')
-    text = text.replace(r'\ )', r'\)')
-    text = text.replace(r'\ [', r'\[')
-    text = text.replace(r'\ ]', r'\]')
+    text = text.replace(r'\ (', r'\(').replace(r'\ )', r'\)').replace(r'\ [', r'\[').replace(r'\ ]', r'\]')
 
     # 読点とカンマの処理
     text = text.replace('、', ',')
     text = re.sub(r',(?!\s)', r', ', text)
 
-    # データソース内の特定の記述ミスを修正する処理
-    text = text.replace('＾', '^')
-    text = text.replace(r'\left\)', r'\left(')
-    text = text.replace(r'\right\(', r'\right)')
+    # データソース内の特定の記述ミスを修正
+    text = text.replace('＾', '^').replace(r'\left\)', r'\left(').replace(r'\right\(', r'\right)')
     text = re.sub(r'f\\\)\s*\((\d+)\)\\\(', r'f(\1)', text)
     
-    # 数式デリミタの前後に必要に応じてスペースを挿入する
+    # 数式デリミタの前後に必要に応じてスペースを挿入
     text = re.sub(r'(?<!\s)(\\[\(\[])', r' \1', text)
     text = re.sub(r'(\\[\)\]])(?!\s)', r'\1 ', text)
     
@@ -67,19 +73,14 @@ def process_latex_text(problem_text):
 class ProblemFormatter:
     """
     問題文をHTML形式に整形するクラス。
-    - 小問番号での改行
-    - 複数種類の小問番号でのインデント
-    - 分数の表示スタイル調整
     """
     def __init__(self):
-        # 小問番号を認識する正規表現
         self.item_pattern = re.compile(
             r'(?<![a-zA-Z_0-9\(])'
             r'('
             r'([①-⑳])|(\((?:[1-9]|1[0-9]|20)\)(?!の|は|が|で|と|より|から|の値))|(\([ア-コ]\))'
             r')'
         )
-        # MathJaxのデリミタで区切るための正規表現
         self.math_pattern = re.compile(r'(\$.*?\$|\\\(.*?\\\)|\\\[.*?\\\]|\$\$.*?\$\$)', re.DOTALL)
         self.series_types_found = []
 
@@ -97,11 +98,9 @@ class ProblemFormatter:
         return f"</p><p>{indent}{full_match}"
 
     def _format_text_part(self, text_part):
-        # 地の文に小問番号の改行処理を適用
         return self.item_pattern.sub(self._replacer, text_part)
 
     def _format_fractions(self, math_part):
-        # トップレベルの\fracを\dfracに置換する
         delimiters = None
         if math_part.startswith(r'\[') and math_part.endswith(r'\]'): delimiters = (r'\[', r'\]')
         elif math_part.startswith(r'\(') and math_part.endswith(r'\)'): delimiters = (r'\(', r'\)')
@@ -135,18 +134,14 @@ class ProblemFormatter:
     def format(self, text):
         if not isinstance(text, str) or not text.strip(): return ""
         self.series_types_found = []
-        # 数式と地の文を分離
         parts = self.math_pattern.split(text)
         formatted_parts = []
         for i, part in enumerate(parts):
             if i % 2 == 0:
-                # 地の文をフォーマット
                 formatted_parts.append(self._format_text_part(part))
             else:
-                # 数式をフォーマット
                 formatted_parts.append(self._format_fractions(part))
         formatted_text = "".join(formatted_parts)
-        # 全体をpタグで囲む
         final_html = f"<p>{formatted_text}</p>"
         if final_html.startswith("<p></p>"):
             final_html = final_html[len("<p></p>"):]
@@ -155,6 +150,7 @@ class ProblemFormatter:
 
 problem_formatter = ProblemFormatter()
 
+# Vercelでは、ルートパスは 'api/index.py' によって処理される
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -165,12 +161,10 @@ def get_problem():
         if not request.is_json: return jsonify(error="リクエストの形式が不正です。"), 400
         data = request.get_json()
         if not data: return jsonify(error="リクエストボディが空です。"), 400
-        
         selected_book = data.get('book', 'all')
         selected_units = data.get('units', [])
         raw_difficulties = data.get('difficulties', [])
         selected_difficulties = [int(d) for d in raw_difficulties if isinstance(d, (int, str)) and str(d).isdigit()]
-
         if not selected_units or not selected_difficulties:
             return jsonify(error="単元と難易度を少なくとも1つずつ選択してください。")
         
@@ -183,38 +177,34 @@ def get_problem():
             temp_ex = df_ex.copy()
             temp_ex['source'] = 'ex'
             df_list.append(temp_ex)
-
-        if not df_list:
-            return jsonify(error="選択可能な問題集のデータが見つかりません。")
+        if not df_list: return jsonify(error="選択可能な問題集のデータが見つかりません。")
         
         target_df = pd.concat(df_list, ignore_index=True)
 
-        # 列の名前の代わりにインデックス番号でアクセス
-        target_df[2] = pd.to_numeric(target_df[2], errors='coerce').fillna(0).astype(int)
+        # 列の名前でアクセスするように変更
+        target_df['difficulty'] = pd.to_numeric(target_df['difficulty'], errors='coerce').fillna(0).astype(int)
         matching_rows = target_df[
-            (target_df[1].isin(selected_units)) &
-            (target_df[2].isin(selected_difficulties))
+            (target_df['unit_name'].isin(selected_units)) &
+            (target_df['difficulty'].isin(selected_difficulties))
         ]
-        if matching_rows.empty:
-            return jsonify(error="選択した単元と難易度に合致する問題が見つかりません。")
+        if matching_rows.empty: return jsonify(error="選択した単元と難易度に合致する問題が見つかりません。")
 
         random_row = matching_rows.sample(n=1).iloc[0]
         
-        unit_name = random_row.iloc[1]
-        example_number = random_row.iloc[3]
+        unit_name = random_row['unit_name']
+        example_number = random_row['problem_number']
         
         if 'source' in random_row and random_row['source'] == 'ex':
             problem_number_display = f"EXERCISE {example_number}"
         else:
             problem_number_display = str(example_number)
 
-        # 5列目からデータを読み込む
-        raw_problem_text = process_latex_text(random_row.iloc[4])
+        raw_problem_text = process_latex_text(random_row['problem_text'])
         formatted_equation = problem_formatter.format(raw_problem_text)
         
-        image_flag = int(random_row.iloc[5]) if pd.notna(random_row.iloc[5]) else 0
-        image_number = int(random_row.iloc[6]) if pd.notna(random_row.iloc[6]) else None
-        difficulty = int(random_row.iloc[2]) if pd.notna(random_row.iloc[2]) else 0
+        image_flag = int(random_row['image_flag']) if pd.notna(random_row['image_flag']) else 0
+        image_number = int(random_row['image_number']) if pd.notna(random_row['image_number']) else None
+        difficulty = int(random_row['difficulty']) if pd.notna(random_row['difficulty']) else 0
         
         return jsonify(
             unit_name=unit_name,
@@ -231,28 +221,36 @@ def get_problem():
 @app.route('/get_selected_problem')
 def get_selected_problem():
     try:
-        if df_chart is None: return jsonify(error="問題データ(chart)が読み込まれていません。")
+        book_type = request.args.get('book', 'chart')
         selected_unit = request.args.get('unit')
         problem_number = request.args.get('problem_number')
+        
+        if book_type == 'ex':
+            target_df = df_ex
+            if target_df is None: return jsonify(error="問題データ(EXERCISE)が読み込まれていません。")
+        else:
+            target_df = df_chart
+            if target_df is None: return jsonify(error="問題データ(例題)が読み込まれていません。")
         if not selected_unit or not problem_number: return jsonify(error="単元と問題番号が指定されていません。")
         
-        # 列の名前の代わりにインデックス番号でアクセス
-        df_chart[3] = df_chart[3].astype(str)
+        # 列の名前でアクセスするように変更
+        target_df['problem_number'] = target_df['problem_number'].astype(str)
         problem_number = str(problem_number)
-        row = df_chart[(df_chart[1] == selected_unit) & (df_chart[3] == problem_number)]
+        row = target_df[(target_df['unit_name'] == selected_unit) & (target_df['problem_number'] == problem_number)]
         
         if row.empty: return jsonify(error=f"問題が見つかりません: {selected_unit} - {problem_number}")
+        
         row = row.iloc[0]
-        # 5列目からデータを読み込む
-        raw_latex_data = process_latex_text(row.iloc[4])
+        raw_latex_data = process_latex_text(row['problem_text'])
         formatted_equation = problem_formatter.format(raw_latex_data)
-        image_flag = int(row.iloc[5]) if pd.notna(row.iloc[5]) else 0
-        image_number = int(row.iloc[6]) if pd.notna(row.iloc[6]) else None
-        difficulty = int(row.iloc[2]) if pd.notna(row.iloc[2]) else 0
+        image_flag = int(row['image_flag']) if pd.notna(row['image_flag']) else 0
+        image_number = int(row['image_number']) if pd.notna(row['image_number']) else None
+        difficulty = int(row['difficulty']) if pd.notna(row['difficulty']) else 0
         return jsonify(problem_number=problem_number, equation=formatted_equation, difficulty=difficulty, image_flag=image_flag, image_number=image_number, row_number=int(row.name))
     except Exception as e:
         app.logger.error(f"Error in /get_selected_problem: {e}\n{traceback.format_exc()}")
         return jsonify(error="サーバー側で予期せぬエラーが発生しました。", details=str(e)), 500
 
+# VercelはWSGIサーバーを必要としないため、この部分はローカルテストでのみ使用されます
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
