@@ -1,214 +1,192 @@
 document.addEventListener("DOMContentLoaded", function() {
-    if (typeof MathJax !== 'undefined' && MathJax.startup) {
-        MathJax.startup.promise.then(() => {
-            MathJax.typesetPromise();
-        });
+    // MathJaxの初期化
+    if (typeof MathJax !== "undefined" && MathJax.typesetPromise) {
+      MathJax.typesetPromise();
     }
 
-    // パスワードチェック関数
-    const correctPassword = "math"; // ここに設定したいパスワードを入力
-    function checkPassword() {
-        const inputPassword = document.getElementById('password').value;
-        const loginElement = document.getElementById('login');
-        const contentElement = document.getElementById('content');
-        if (inputPassword === correctPassword) {
-            if (loginElement && contentElement) {
-                loginElement.style.display = 'none';
-                contentElement.style.display = 'block';
-            }
-        } else {
-            alert('パスワードが間違っています');
+    // --- 履歴機能のためのグローバル変数 ---
+    let problemHistory = []; 
+
+    // --- パスワードチェック (変更なし) ---
+    window.checkPassword = function() {
+      const inputPassword = document.getElementById("password").value;
+      if (inputPassword === "sugaku") {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("content").style.display = "block";
+      } else {
+        alert("パスワードが間違っています");
+      }
+    }
+  
+    // --- 難易度テキスト生成ヘルパー関数 ---
+    function getDifficultyText(level) {
+        const descriptions = {
+            1: '（教科書の例レベル）',
+            2: '（教科書の例題レベル）',
+            3: '（教科書の節末・章末レベル）',
+            4: '（入試の基本～標準レベル）',
+            5: '（入試の標準～やや難レベル）'
+        };
+        const stars = "★".repeat(level) + "☆".repeat(5 - level);
+        return `${stars} ${descriptions[level] || ''}`;
+    }
+
+    // --- 受け取った問題データを表示する共通関数 ---
+    function displayProblem(data, fromHistory = false) {
+        if (!data) return;
+        document.getElementById("unit_name").innerText = data.unit_name || '';
+        document.getElementById("problem_number").innerText = data.problem_number || '';
+        const difficulty = parseInt(data.difficulty, 10);
+        document.getElementById("difficulty_level").innerText = getDifficultyText(difficulty);
+        const equationContainer = document.getElementById("equation_container");
+        equationContainer.innerHTML = data.equation || '';
+        MathJax.typesetPromise([equationContainer]);
+        if (!fromHistory) {
+            problemHistory.push(data);
+            renderHistoryTable();
         }
     }
-    window.checkPassword = checkPassword; // これを追加して、グローバル関数にする
-
-    // LaTeXをラップする関数
-    function wrapLatex(text) {
-        if (!text) return "";
-        return text.replace(/([^\u3000-\u303F\u3040-\u30FF\u4E00-\u9FFF]+)/g, function(match) {
-            return `\\(${match}\\)`;
-        });
-    }
-
-    // 問題を取得する関数
-    function getProblem() {
-        const selectedUnits = [];
-        const selectedDifficulties = [];
-
-        // 選択された単元を収集
-        document.querySelectorAll('.unit-checkbox:checked').forEach(checkbox => {
-            selectedUnits.push(checkbox.dataset.value);
-        });
-        // 選択された難易度を収集 
-        document.querySelectorAll('#difficult .unit-checkbox:checked').forEach(checkbox => { 
-            selectedDifficulties.push(checkbox.dataset.difficulty);
-        });
-
-        if (selectedUnits.length === 0) {
-            document.getElementById('error-message').style.display = 'block';
-            return;
-        } else {
-            document.getElementById('error-message').style.display = 'none';
-        }
-
-        fetch('/get_problem', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ units: selectedUnits, difficulties: selectedDifficulties })
-        })
-        .then(response => response.json())
+  
+    // --- ランダムモードで問題を取得 ---
+    window.getProblem = function() {
+      const selectedBook = document.querySelector('input[name="book_select"]:checked').value;
+      const selectedUnits = Array.from(document.querySelectorAll(".unit-checkbox:checked")).map(cb => cb.dataset.value).filter(Boolean);
+      const selectedDifficulties = Array.from(document.querySelectorAll("#difficult .unit-checkbox:checked")).map(cb => cb.dataset.difficulty).filter(Boolean);
+  
+      if (selectedUnits.length === 0) {
+        document.getElementById("error-message").style.display = "block";
+        return;
+      } else {
+        document.getElementById("error-message").style.display = "none";
+      }
+  
+      fetch("/get_problem", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ book: selectedBook, units: selectedUnits, difficulties: selectedDifficulties }),
+      })
+        .then(response => { if (!response.ok) throw new Error(`サーバーエラー: ${response.status}`); return response.json(); })
         .then(data => {
-            if (data.error) {
-                console.error('Server error:', data.error);
-                alert('Server error: ' + data.error);
-                return;
-            }
-            const problemNumberElement = document.getElementById('problem_number');
-            const equationContainer = document.getElementById('equation_container');
-            const question1 = document.getElementById('question1');
-            const question2 = document.getElementById('question2');
-            const question3 = document.getElementById('question3');
-            const question4 = document.getElementById('question4');
-            const question5 = document.getElementById('question5');
-            const question6 = document.getElementById('question6');
-            const problemImageContainer = document.getElementById('problem_image_container');
-
-            if (problemNumberElement && equationContainer && question1 && question2 && question3 && question4 && question5 && question6) {
-                problemNumberElement.innerText = data.problem_number;
-                equationContainer.innerHTML = wrapLatex(data.equation);
-                question1.innerHTML = wrapLatex(data.q1);
-                question2.innerHTML = wrapLatex(data.q2);
-                question3.innerHTML = wrapLatex(data.q3);
-                question4.innerHTML = wrapLatex(data.q4);
-                question5.innerHTML = wrapLatex(data.q5);
-                question6.innerHTML = wrapLatex(data.q6);
-
-                if (data.image_flag === 1 && problemImageContainer) { 
-                    problemImageContainer.innerHTML = `<img src="/static/images/${data.image_number}.png" alt="問題画像">`; 
-                } else if (problemImageContainer) { 
-                    problemImageContainer.innerHTML = ""; // 画像がない場合は空にする 
-                }
-
-                MathJax.typesetPromise([
-                    equationContainer, 
-                    question1, 
-                    question2, 
-                    question3, 
-                    question4,
-                    question5,
-                    question6
-                ]);
-            }
+            if (data.error) { alert(data.error); return; }
+            displayProblem(data, false);
         })
-        .catch(error => {
-            alert('There was an error fetching the problem. Please try again later.');
-        });
+        .catch(error => { console.error("問題の取得中にエラーが発生しました:", error); alert("問題の取得中にエラーが発生しました。コンソールを確認してください。"); });
     }
-    window.getProblem = getProblem; // これを追加して、グローバル関数にする
 
-    // 問題を取得する関数
-    function getSelectedProblem() {
-        const unit = document.getElementById('unit_select').value;
-        const problemNumber = document.getElementById('problem_number_input').value;
-
-        fetch(`/get_selected_problem?unit=${unit}&problem_number=${problemNumber}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-
-                const selectedProblemNumberElement = document.getElementById('selected_problem_number');
-                const selectedEquationContainer = document.getElementById('selected_equation_container');
-                const selectedQuestion1 = document.getElementById('selected_question1');
-                const selectedQuestion2 = document.getElementById('selected_question2');
-                const selectedQuestion3 = document.getElementById('selected_question3');
-                const selectedQuestion4 = document.getElementById('selected_question4');
-                const selectedQuestion5 = document.getElementById('selected_question5');
-                const selectedQuestion6 = document.getElementById('selected_question6');
-                const difficultyLevelElement = document.getElementById('difficulty_level');
-                const selectedImageContainer = document.getElementById('selected_problem_image_container');
-
-                if (selectedProblemNumberElement && selectedEquationContainer && selectedQuestion1 && selectedQuestion2 && selectedQuestion3 && selectedQuestion4 && selectedQuestion5 && selectedQuestion6 && difficultyLevelElement) {
-                    selectedProblemNumberElement.innerText = data.problem_number;
-                    selectedEquationContainer.innerHTML = wrapLatex(data.equation);
-                    selectedQuestion1.innerHTML = wrapLatex(data.q1);
-                    selectedQuestion2.innerHTML = wrapLatex(data.q2);
-                    selectedQuestion3.innerHTML = wrapLatex(data.q3);
-                    selectedQuestion4.innerHTML = wrapLatex(data.q4);
-                    selectedQuestion5.innerHTML = wrapLatex(data.q5);
-                    selectedQuestion6.innerHTML = wrapLatex(data.q6);
-
-                    if (data.image_flag === 1 && selectedImageContainer) { 
-                        selectedImageContainer.innerHTML = `<img src="/static/images/${data.image_number}.png" alt="問題画像">`; 
-                    } else if (selectedImageContainer) { 
-                        selectedImageContainer.innerHTML = ""; // 画像がない場合は空にする
-                    }
-
-                    // 難易度を☆で表示
-                    let stars = "";
-                    switch (parseInt(data.difficulty)) {
-                        case 1:
-                            stars = "★☆☆☆☆"; break;
-                        case 2:
-                            stars = "★★☆☆☆"; break;
-                        case 3:
-                            stars = "★★★☆☆"; break;
-                        case 4:
-                            stars = "★★★★☆"; break;
-                        case 5:
-                            stars = "★★★★★"; break;
-                        default:
-                            stars = "難易度不明";
-                    }
-                    difficultyLevelElement.innerText = stars;
-
-                    MathJax.typesetPromise([
-                        selectedEquationContainer, 
-                        selectedQuestion1, 
-                        selectedQuestion2, 
-                        selectedQuestion3, 
-                        selectedQuestion4,
-                        selectedQuestion5,
-                        selectedQuestion6
-                    ]);
-                }
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-            });
-    }
-    window.getSelectedProblem = getSelectedProblem;
-
-    // 親スイッチが子スイッチと連動するように設定
-    document.querySelectorAll('.unit-toggle').forEach(toggle => {
-        toggle.addEventListener('change', function() {
-            const target = this.getAttribute('data-target');
-            const checkboxes = document.querySelectorAll(`#${target} .unit-checkbox`);
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = this.checked; // 親のトグルスイッチの状態に合わせて子のトグルスイッチを変更
-            });
-        });
-    });
-
-    // アコーディオンの開閉を行うイベントリスナー
-    document.querySelectorAll('.accordion .arrow-wrapper').forEach(arrow => {
-        arrow.addEventListener('click', function() {
-            const content = this.parentElement.nextElementSibling;
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
+    // --- 履歴関連の関数群 ---
+    function renderHistoryTable() {
+        const tbody = document.getElementById('history_table_body');
+        tbody.innerHTML = ''; 
+        [...problemHistory].reverse().forEach((problem, index) => {
+            const originalIndex = problemHistory.length - 1 - index;
+            const row = tbody.insertRow();
+            row.dataset.historyIndex = originalIndex;
+            const originalHTML = (problem.equation || '').replace(/<p>|<\/p>/g, ' ').trim();
+            let previewHTML = originalHTML;
+            if (originalHTML.length > 30) {
+                let cutPoint = 30;
+                let firstSpace = originalHTML.indexOf(' ', cutPoint);
+                if(firstSpace > -1) { cutPoint = firstSpace; }
+                const substring = originalHTML.substring(0, cutPoint);
+                const openDelimiters = (substring.match(/\\\(/g) || []).length;
+                const closeDelimiters = (substring.match(/\\\)/g) || []).length;
+                if (openDelimiters > closeDelimiters) {
+                    const endOfMath = originalHTML.indexOf('\\)', cutPoint);
+                    if (endOfMath > -1) { previewHTML = originalHTML.substring(0, endOfMath + 2); } 
+                    else { previewHTML = originalHTML.replace(/\\\(|\\\)|\\\[|\\\]|\$|\$\$/g, '').substring(0, 30); }
+                } else { previewHTML = substring; }
+                previewHTML += '...';
             }
-            content.classList.toggle('content-open');
-            this.querySelector('.fa').classList.toggle('fa-rotate-180');
+            row.insertCell(0).innerText = originalIndex + 1;
+            row.insertCell(1).innerText = problem.problem_number;
+            const previewCell = row.insertCell(2);
+            previewCell.innerHTML = previewHTML;
         });
+        MathJax.typesetPromise([tbody]);
+    }
+
+    document.getElementById('history_table_body').addEventListener('click', function(event) {
+        const row = event.target.closest('tr');
+        if (row && row.dataset.historyIndex) {
+            const index = parseInt(row.dataset.historyIndex, 10);
+            displayProblem(problemHistory[index], true);
+        }
     });
 
-    // トグルスイッチの状態を確認するためにイベントリスナーを追加
-    document.querySelectorAll('.unit-checkbox').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-        });
+    window.toggleHistory = function() {
+        const historySection = document.getElementById('history_section');
+        const button = document.getElementById('toggle_history_button');
+        const isHidden = historySection.style.display === 'none';
+        if (isHidden) {
+            historySection.style.display = 'block';
+            button.innerText = '履歴を非表示';
+        } else {
+            historySection.style.display = 'none';
+            button.innerText = '履歴を表示';
+        }
+    }
+  
+    // --- 選択モードの処理 ---
+    window.getSelectedProblem = function() {
+      // ▼▼▼【修正点】新しいUIから値を取得するように変更 ▼▼▼
+      const selectedBook = document.getElementById('select_book_type').value;
+      const unitSelect = document.getElementById(selectedBook === 'chart' ? 'unit_select_chart' : 'unit_select_ex');
+      const unit = unitSelect.value;
+      const problemNumber = document.getElementById("problem_number_input").value;
+      
+      fetch(`/get_selected_problem?book=${selectedBook}&unit=${encodeURIComponent(unit)}&problem_number=${encodeURIComponent(problemNumber)}`)
+        .then(response => { if (!response.ok) throw new Error(`サーバーエラー: ${response.status}`); return response.json(); })
+        .then(data => {
+          if (data.error) { alert(data.error); return; }
+          document.getElementById("selected_problem_number").innerText = data.problem_number;
+          const difficulty = parseInt(data.difficulty, 10);
+          document.getElementById("selected_difficulty_display").innerText = getDifficultyText(difficulty);
+          const selectedEquationContainer = document.getElementById("selected_equation_container");
+          selectedEquationContainer.innerHTML = data.equation;
+          MathJax.typesetPromise([selectedEquationContainer]);
+        })
+        .catch(error => { console.error("問題の取得中にエラーが発生しました:", error); alert("問題の取得中にエラーが発生しました。コンソールを確認してください。"); });
+    }
+
+    // ▼▼▼【修正点】選択モードの問題集ドロップダウンのイベントリスナー ▼▼▼
+    document.getElementById('select_book_type').addEventListener('change', function() {
+        const chartSelect = document.getElementById('unit_select_chart');
+        const exSelect = document.getElementById('unit_select_ex');
+        if (this.value === 'chart') {
+            chartSelect.style.display = 'block';
+            exSelect.style.display = 'none';
+        } else {
+            chartSelect.style.display = 'none';
+            exSelect.style.display = 'block';
+        }
+    });
+  
+    // --- 以下、変更なし ---
+    window.toggleProblemDetails = function() {
+      const details = document.getElementById("problem_details");
+      const button = document.getElementById("toggle_details");
+      const isHidden = details.style.display === "none" || details.style.display === "";
+      if (isHidden) { details.style.display = "block"; button.innerText = "問題の詳細を非表示"; } 
+      else { details.style.display = "none"; button.innerText = "問題の詳細を表示"; }
+    }
+  
+    document.querySelectorAll(".unit-toggle").forEach(function(toggle) {
+      toggle.addEventListener("change", function() {
+        const targetId = this.dataset.target;
+        const checkboxes = document.querySelectorAll(`#${targetId} .unit-checkbox`);
+        checkboxes.forEach(function(checkbox) { checkbox.checked = toggle.checked; });
+      });
+    });
+  
+    document.querySelectorAll(".accordion .title").forEach(function(title) {
+      title.addEventListener("click", function(event) {
+        if (event.target.closest('.toggle-switch')) return;
+        const content = this.nextElementSibling;
+        const arrowIcon = this.querySelector(".fa-angle-down");
+        if (content.style.maxHeight) { content.style.maxHeight = null; } 
+        else { content.style.maxHeight = content.scrollHeight + "px"; }
+        content.classList.toggle("content-open");
+        if (arrowIcon) arrowIcon.classList.toggle("fa-rotate-180");
+      });
     });
 });
-

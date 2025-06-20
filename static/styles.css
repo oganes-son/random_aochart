@@ -1,4 +1,3 @@
-/* CSSコード */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Yomogi&display=swap');
 
@@ -49,7 +48,8 @@ div {
 }
 
 input[type="password"] {
-    width: 10vw; /* PCの場合の幅を20vwに設定 */
+    width: 20vw; /* PCの場合の幅を20vwに設定 */
+    max-width: 250px;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -59,32 +59,76 @@ input[type="password"] {
     color: #105369;
 }
 
+/* --- ボタンのスタイル --- */
 button {
-    width: 30vw; /* PCの場合の幅を30vwに設定 */
     background-color: #6dd1f2;
     color: white;
-    padding: 10px;
+    padding: 10px 15px;
     margin: 10px 0;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-size: 1.1em;
+    box-sizing: border-box;
 }
 
 button:hover {
     background-color: #4682b4;
 }
 
-.login-form {
-    display: flex;
-    flex-direction: column; /* 縦に配置 */
-    align-items: center; /* 中央揃え */
+/* 「問題を選ぶ」ボタン用の大きいスタイル */
+.main-action-button {
+    width: 100%;
+    max-width: 410px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.login-form input,
-.login-form button {
-    margin-bottom: 10px; /* フィールドとボタンの間にスペースを追加 */
+/* 「詳細」「履歴」ボタン用の小さいスタイル */
+.secondary-action-button {
+    flex: 1;
+    margin: 0;
 }
+
+/* 横並びボタン用のコンテナ */
+.secondary-buttons-container {
+    display: flex;
+    justify-content: flex-start; /* 左揃え */
+    gap: 10px;
+    width: 100%;
+    max-width: 410px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form input {
+    margin-bottom: 10px;
+}
+
+/* ログインフォームの送信ボタン専用スタイル */
+.login-form button {
+    width: 20vw; /* パスワード入力欄と同じ幅 */
+    max-width: 250px;
+    font-family: 'Yomogi', cursive;
+    font-size: 1.2em;
+}
+
+.login-form button::after {
+    content: ' \f1d8'; /* Font Awesomeの紙飛行機アイコン */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-left: 5px;
+}
+
 
 .center-align {
     text-align: center;
@@ -96,6 +140,20 @@ button:hover {
     white-space: pre-wrap;
     overflow-wrap: break-word;
     max-width: 100%;
+}
+
+#problem_details {
+    text-align: left;
+    max-width: 100%;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+#equation_container, #question1, #question2, #question3, #question4,
+#question5, #question6, #question7, #question8, #question9, #question10 {
+    text-align: left;
+    margin-left: 0;
+    position: relative;
 }
 
 .password-text{
@@ -128,7 +186,6 @@ button:hover {
     font-weight: 900;
     left: -1.5em;
     top: 50%;
-    -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
     background-color: #105369;
     color: #ffffff;
@@ -152,14 +209,14 @@ button:hover {
 
 .unit-checkbox label {
     display: flex;
-    align-items: center; /* 水平に中央揃え */
-    gap: 10px; /* トグルスイッチとテキストの間に余白を追加 */
+    align-items: center;
+    gap: 10px;
 }
 
 /* チェックボックスのカスタムスタイル */
 label.toggle-switch:has(input[type="checkbox"]) {
     display: inline-flex;
-    --font-size: 16px; /* 基本サイズ お好きなサイズに設定 */
+    --font-size: 16px;
     font-size: var(--font-size);
     line-height: calc(var(--font-size) + 4px);
     align-items: center;
@@ -172,11 +229,9 @@ label.toggle-switch > input[type="checkbox"] {
     width: 2em;
     height: 1em;
     padding: 0;
-    margin-left: 0; /* 左側の余白を0に設定 */
+    margin-left: 0;
     appearance: none;
     -webkit-appearance: none;
-    -ms-appearance: none;
-    -moz-appearance: none;
     background: #AAA;
     border-radius: 0.5em;
     box-shadow: 0.3em 0.3em 0.3em 0px rgba(0, 0, 0, 0.6) inset;
@@ -230,25 +285,24 @@ label.toggle-switch > input[type="checkbox"]:checked::after {
 .simple-toggle-switch {
     display: flex;
     align-items: center;
-    gap: 10px; /* スライダーとテキストの間に余白を追加 */
+    gap: 10px;
 }
 
 .simple-toggle-switch input[type="checkbox"] {
-    box-sizing: border-box;
     position: relative;
     font-size: 1.4em;
-    width: 1.4em; /* 小さくする */
-    height: 0.7em; /* 小さくする */
+    width: 1.4em;
+    height: 0.7em;
     padding: 0;
     appearance: none;
-    background: #AAA; /* オフの色 */
+    background: #AAA;
     border-radius: 0.35em;
     box-shadow: 0.2em 0.2em 0.2em 0px rgba(0, 0, 0, 0.6) inset;
     -webkit-tap-highlight-color: transparent;
 }
 
 .simple-toggle-switch input[type="checkbox"]:checked {
-    background: #6dd1f2; /* オンの色 */
+    background: #6dd1f2;
 }
 
 .simple-toggle-switch input[type="checkbox"]::before {
@@ -258,7 +312,7 @@ label.toggle-switch > input[type="checkbox"]:checked::after {
     left: 0.1em;
     top: 0.1em;
     bottom: 0.1em;
-    width: 0.6em; /* 小さくする */
+    width: 0.6em;
     background: #FFF;
     border-radius: 0.3em;
     transform: translate(0%, 0%);
@@ -269,62 +323,20 @@ label.toggle-switch > input[type="checkbox"]:checked::after {
 
 .simple-toggle-switch input[type="checkbox"]:checked::before {
     transform: translate(100%, 0%);
-    transition: all 0.2s ease-in-out;
 }
 
-/* ON/OFF文字を削除 */
 .simple-toggle-switch input[type="checkbox"]::after {
     content: none;
 }
 
 .simple-toggle-switch .toggle-text {
-    font-size: 14px; /* テキストのフォントサイズを調整 */
-    white-space: nowrap; /* 改行せず一行に設定 */
+    font-size: 14px;
+    white-space: nowrap;
 }
 
-
-
-
-/* 追加するスタイル */
 label.toggle-switch .toggle-text {
-    font-size: 16px; /* 「問題を選ぶ」ボタンと同じ文字サイズに設定 */
-    white-space: nowrap; /* 改行せず一行に設定 */
-}
-
-
-.toggle-section {
-    width: 48%;
-    margin-bottom: 20px;
-}
-
-.menu-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ace8fc; /* 薄い水色 */
-    color: #0c0031;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    transition: background-color 0.3s ease, color 0.3s;
-}
-
-.menu-button:hover {
-    background-color: #4682b4; /* 青色 */
-    color: #fff;
-    cursor: pointer;
-}
-
-.checkbox-section {
-    display: none;
-    padding: 10px;
-    border: 1px solid #ccc;
-    background-color: #fafafa;
-}
-
-.checkbox-section label {
-    display: block;
-    margin-bottom: 5px;
+    font-size: 16px;
+    white-space: nowrap;
 }
 
 .error-message {
@@ -332,68 +344,51 @@ label.toggle-switch .toggle-text {
     font-weight: bold;
 }
 
-/* スライダーの左側の余白を減らす */ 
 .slider { 
-    margin-left: 0; /* 左側の余白を0に設定 */ 
-}
-
-input:checked + .slider {
-    background-color: #4682b4;
-}
-
-input:focus + .slider {
-    box-shadow: 0 0 1px #6dd1f2;
-}
-
-input:checked + .slider:before {
-    transform: translateX(26px);
+    margin-left: 0; 
 }
 
 .toggle-text {
-    margin-left: 10px; /* スライダーとテキストの間に余白を追加 */
+    margin-left: 10px;
     font-size:12px !important;
 }
 
 /* タブ切り替え */
 .tab-wrap {
-    --active-tab-color: #6dd1f2; /*選択したタブの色をここに指定*/
-    --tab-gap: 10px; /*タブ間の余白*/
+    --active-tab-color: #6dd1f2;
+    --tab-gap: 10px;
     display: flex;
     flex-wrap: wrap;
     gap: var(--tab-gap);
 }
 
-/*タブ(label)のスタイル*/
 .tab-label {
     color: #0c0031;
     border-bottom: 1px solid var(--active-tab-color);
     text-align: center;
     padding: .5em 1em;
-    order: -1; /*タブを上段に表示する*/
-    flex-grow: 1; /*flexアイテムの伸び率を調整*/
+    order: -1;
+    flex-grow: 1;
     position: relative;
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
-/* タブのコンテンツ部分*/
 .tab-content {
     width: 100%;
-    display: none; /*いったん非表示状態に設定*/
+    display: none;
     position: relative;
 }
 
 .tab-switch:not(:checked) + .tab-label {
-    color: #0c0031; /* 選択されていないときも文字色を維持 */
+    color: #0c0031;
 }
 
-/*選択されていることがわかるように、選択されているタブの色を変える*/
 .tab-switch:checked + .tab-label {
     background-color: var(--active-tab-color);
     color: #fff;
 }
 
-/*吹き出し部分*/
 .tab-switch:checked + .tab-label:after {
     background-color: var(--active-tab-color);
     clip-path: polygon(0 0, 100% 0, 50% 100%);
@@ -406,73 +401,45 @@ input:checked + .slider:before {
     width: 20px;
 }
 
-/* 選択されているタブのコンテンツを表示させる */
 .tab-switch:checked + .tab-label + .tab-content {
     display: block;
     margin-top: 1em;
 }
 
-/* input（ラジオボタン）は仕組みだけ利用するため非表示 */
 .tab-switch {
     display: none;
-}
-
-/* 右サイドバーのスタイル */
-.RightContent {
-    width: 100%; /* サイドバーの幅を30%に固定 */
-    background-color: #d5f1fd; /* ごく薄い水色の背景色 */
-    padding: 20px;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-    overflow-y: auto;
-    margin-top: 0; /* タブの下に配置されるようにマージンをリセット */
-    position: relative; /* 位置を固定に設定 */
-    top: 0px; /* 位置を調整してランダムモード、選択モードの下に配置 */
-    height: auto; /* 高さを調整 */
 }
 
 /* メインコンテンツとサイドバーを並べるスタイル */
 .content-and-sidebar {
     display: flex;
     flex-direction: row; 
-    align-items: flex-start; /* 上端を揃える */
+    align-items: flex-start;
     justify-content: space-between;
 }
 
 aside {
-    background-color: #e3f7ff; /* ごく薄い水色の背景色 */
+    background-color: #e3f7ff;
     padding: 20px;
-    border-radius: 20px; /* 角を丸くする（お好みで） */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 軽い影を追加（お好みで） */
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     margin-bottom: 20px; 
 }
 .content-and-sidebar > aside { 
-    width: 48%; /* 幅を50%に設定（余白を考慮して調整可能） */ 
+    width: 48%; 
 }
 
-/* メインコンテンツのスタイル */
 .main-content {
-    flex: 1; /* メインコンテンツを残りの幅に合わせる */
-    margin-right: 20px; /* サイドバーの幅に合わせてマージンを追加 */
+    flex: 1;
+    margin-right: 20px;
 }
 
-/* サイドバー */ 
 .sidebar { 
     display: flex; 
-    flex-direction: column; /* 縦方向に並べる */ 
-    width: 25vw; /* 幅を設定 */ 
-    max-width: 300px; /* 最大幅を設定してはみ出さないように */ 
+    flex-direction: column;
+    width: 25vw;
+    max-width: 300px;
     box-sizing: border-box;
-}
-
-.tab-label {
-    color: white;
-    padding: 10px;
-    margin: 0 10px;
-    cursor: pointer;
-}
-
-.tab-switch:checked + .tab-label + .tab-content {
-    display: block;
 }
 
 /* アコーディオンスタイル */
@@ -484,29 +451,28 @@ aside {
     margin-right: auto;
 }
 
-/* アコーディオンアイテムのスタイル */ 
 .accordion-item1, .accordion-item2, .accordion-item3, .accordion-item4, .accordion-item5, .accordion-item6 { 
-    overflow: hidden; /* コンテンツがはみ出さないように設定 */ 
-    width: 100%; /* 幅を100%に設定 */
+    overflow: hidden;
+    width: 100%;
 }
 
 .accordion .title {
     padding: 10px;
-    height: 30px; /* 高さを調整 */
+    height: 30px;
     cursor: pointer;
-    background: #e3f7ff; /* 初期の背景色を薄い水色に設定 */
+    background: #e3f7ff;
     border: 1px solid #ddddddb5;
-    border-radius: 8px; /* 角を丸くする */
+    border-radius: 8px;
     margin-top: -1px;
-    margin-bottom: 0; /* アコーディオン同士の隙間をなくす */
+    margin-bottom: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: background-color 0.3s ease, border-color 0.3s ease; /* ホバー時の背景色とボーダー色の変更 */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .accordion .title:hover {
-    background-color: #b3e5fc; /* ホバー時の色を濃い水色に */
+    background-color: #b3e5fc;
     border-color: #b3e5fc;
 }
 
@@ -514,20 +480,20 @@ aside {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
-    margin-bottom: 0; /* アコーディオン同士の隙間をなくす */
+    margin-bottom: 0;
 }
 
 .accordion .content-open {
-    max-height: 50vh; /* 適切な値に調整 */
-    background: #b3e5fc; /* アコーディオンの色を薄くした背景色 */
+    max-height: 50vh;
+    background: #b3e5fc;
 }
 
 .accordion .content-text {
-    padding: 0 18px;
+    padding: 15px 18px;
     background: #b3e5fc;
     display: flex;
     flex-direction: column;
-    gap: 10px; /* トグルスイッチと名前の間に余白を追加 */
+    gap: 10px;
 }
 
 .accordion .fa-angle-down {
@@ -536,75 +502,97 @@ aside {
     transition: transform 0.2s ease-out;
 }
 
-.accordion .fa {
-    transition: transform 0.2s ease-out;
-}
-
 .accordion .fa-rotate-180 {
     transform: rotate(180deg);
 }
 
-.accordion .toggle-switch {
+/* --- 選択モードのレイアウトスタイル --- */
+.selection-controls {
     display: flex;
-    align-items: center; /* トグルスイッチと名前を横並びに */
-    gap: 10px; /* スライダーとテキストの間に余白を追加 */
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
 }
 
-/* セレクトボックスのスタイル */
-#unit_select {
-    width: 20vw; /* セレクトボックスの幅を設定 */
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px; /* フォントサイズを指定 */
-}
-
-.selection-mode {
+.control-group {
     display: flex;
     flex-direction: column;
-    gap: 5px; /* 各要素の間に余白を追加 */
+    min-width: 120px;
 }
 
-.selection-mode select,
-.selection-mode input,
-.selection-mode button {
-    width: 20vw; /* セレクトボックス、入力ボックス、ボタンの幅を統一 */
+.control-group:nth-child(2) { flex: 3; }
+.control-group:nth-child(1), .control-group:nth-child(3) { flex: 2; }
+.control-group:nth-child(4) { flex: 1; }
+
+.control-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.control-group select,
+.control-group input[type="number"] {
+    width: 100%;
     padding: 10px;
-    margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px; /* フォントサイズを指定 */
+    font-size: 1em;
 }
 
-/* アコーディオンの矢印アイコンの位置とサイズを調整 */
-.arrow-wrapper {
-    display: flex;
-    align-items: center; /* 垂直方向に中央揃え */
-    justify-content: center; /* 水平方向に中央揃え */
-    height: 100%; /* 親要素の高さを引き継ぐ */
+.control-group .main-action-button {
+    width: 100%;
+    margin: 0;
+    padding: 10px;
 }
 
-.arrow-wrapper .fa-angle-down {
-    font-size: 1.5em; /* 矢印アイコンのサイズを少し大きく */
-    margin-left: 10px; /* トグルスイッチの横に配置 */
-    line-height: 1; /* 行の高さを調整して垂直方向に中央揃え */
+/* --- 履歴機能のスタイル --- */
+.history-table-container {
+  max-height: 250px; 
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  margin-top: 10px;
 }
 
+#history_section table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#history_section th, 
+#history_section td {
+  border: 1px solid #e0e0e0;
+  padding: 8px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+#history_section th {
+  background-color: #f9f9f9;
+  position: sticky;
+  top: 0;
+}
+
+#history_table_body tr:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
 
 @media (max-width: 960px) {
     body {
         font-size: 14px;
-        padding: 0 5%; /* 左右に5%の余白を設定 */
+        padding: 0 5%;
     }
 
     .outer-container { 
-        padding: 0 10px; /* 左右のパディングを減らして幅を狭くする */ 
+        padding: 0 10px; 
         box-sizing: border-box; 
     }
     .inner-container { 
-        width: 95vw; /* 内側の幅を広げる */ 
-        padding: 0 2.5vw; /* 左右のパディングを減らす */ 
+        width: 95vw;
+        padding: 0 2.5vw;
         box-sizing: border-box;
     }
 
@@ -618,114 +606,52 @@ aside {
     }
 
     .main-content { 
-        margin-right: 0; /* サイドバーのためのマージンを削除 */ 
+        margin-right: 0;
     }
 
     .main-content, .sidebar { 
-        width: 100%; /* 幅を100%に設定 */ 
-        max-width: 100%; /* 最大幅を100%に設定 */ 
-    }
-
-    .sample_h_21, .tab-label, .center-align { 
-        margin-left: 0; /* 左端に揃える */
-    }
-
-    .left-align {
-        text-align: left;
-        margin-left: 0;
-        word-wrap: break-word;
-        white-space: pre-wrap;
-        overflow-wrap: break-word;
+        width: 100%;
         max-width: 100%;
     }
 
-    input[type="password"] {
-        width: 30vw; /* 携帯の場合の幅を50vwに設定 */
-        padding: 8px;
-        font-size: 1.5em;
-        font-family: 'Yomogi', cursive;
-        color: #105369;
+    .left-align {
+        margin-left: 0;
     }
 
-    button {
-        width: 30vw; /* 携帯の場合の幅を50vwに設定 */
-        padding: 8px;
+    input[type="password"],
+    .login-form button {
+        width: 50vw; /* モバイルでの入力欄とボタンの幅 */
+        max-width: 300px;
     }
-
+    
     .content-and-sidebar {
-        display: flex; 
-        flex-direction: column; /* 縦方向に並べる */ 
-        align-items: flex-start; /* 上端を揃える */ 
-        justify-content: flex-start;
+        flex-direction: column;
+        align-items: stretch;
     }
     .content-and-sidebar > aside { 
-        width: 100%; /* 幅を100%に設定 */
+        width: 100%;
+        margin-right: 0;
     }
-
-    .RightContent {
-        width: 100%; 
-        margin-top: 20px;
+    
+    .selection-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
     }
-
-    #unit_select {
-        width: 50vw; /* モバイルの場合のセレクトボックスの幅を設定 */
-        padding: 8px;
+    .control-group,
+    .control-group:nth-child(1),
+    .control-group:nth-child(2),
+    .control-group:nth-child(3),
+    .control-group:nth-child(4) {
+        flex: none;
+        min-width: auto;
     }
-    .selection-mode select,
-    .selection-mode input,
-    .selection-mode button {
-        width: 90%; /* モバイルの場合の幅を設定 */
-        padding: 5px;
-    }
-
+    
     .accordion {
         display: grid;
-        width: 100%; /* アコーディオンコンテナの幅を100%に */
-        grid-template-columns: 38vw 38vw; /* 2列に設定 */
-        grid-column-gap: 5px; /* 列間の隙間 */
-        grid-row-gap: 5px; /* 行間の隙間 */
-        box-sizing: border-box; /* paddingとborderを含む幅調整 */
+        width: 100%;
+        grid-template-columns: 1fr 1fr; /* 2列に設定 */
+        gap: 5px;
+        box-sizing: border-box;
     }
-
-    .accordion-item1, 
-    .accordion-item2, 
-    .accordion-item3, 
-    .accordion-item4, 
-    .accordion-item5, 
-    .accordion-item6 {
-        width: 100%; /* 各アコーディオンアイテムの幅を100%に */
-        margin: 0; /* マージンをリセット */
-    }
-
-    .accordion .content-text { 
-        font-size: 12px; /* コンテンツ部分のフォントサイズを12pxに設定 */ 
-        text-align: left;
-    } 
-    .accordion .content-text .toggle-text { 
-        font-size: 12px; /* 各トグルスイッチのテキスト部分も12pxに設定 */ 
-        text-align: left;
-    }
-    .accordion .content { 
-        padding: 0; /* コンテンツ全体のパディングをリセット */
-    }
-
-    aside {
-        background-color: #e3f7ff; /* 薄い水色の背景色 */
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        margin-bottom: 20px;
-        width: 100%; /* 2つのアコーディオンを含む幅に調整 */
-        box-sizing: border-box; /* paddingを含む幅調整 */
-    }
-    .accordion-container { 
-        display: flex; 
-        flex-wrap: wrap; 
-        justify-content: space-between; 
-        width: 100%; /* コンテナが画面の幅に収まるように調整 */
-    } 
 }
-
-
-
-
