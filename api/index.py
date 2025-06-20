@@ -77,7 +77,8 @@ class ProblemFormatter:
         if match.group(2): current_series_type = 'round_num'
         elif match.group(3): current_series_type = 'paren_num'
         elif match.group(4): current_series_type = 'paren_kana'
-        if current_series_type and current_series_type not in self.series_types_found: self.series_types_found.append(current_series_type)
+        if current_series_type and current_series_type not in self.series_types_found:
+            self.series_types_found.append(current_series_type)
         indent = ''
         if current_series_type and self.series_types_found.index(current_series_type) >= 1: indent = '&emsp;'
         return f"</p><p>{indent}{full_match}"
@@ -98,10 +99,12 @@ class ProblemFormatter:
                 else: output_str += '\\frac'
                 i += 5
             elif content[i] == '{':
-                if i == 0 or content[i-1] != '\\': brace_level += 1
+                if i > 0 and content[i-1] != '\\': brace_level += 1
+                elif i == 0: brace_level += 1
                 output_str += content[i]; i += 1
             elif content[i] == '}':
-                if i == 0 or content[i-1] != '\\': brace_level = max(0, brace_level - 1)
+                if i > 0 and content[i-1] != '\\': brace_level = max(0, brace_level - 1)
+                elif i == 0: brace_level = max(0, brace_level - 1)
                 output_str += content[i]; i += 1
             else: output_str += content[i]; i += 1
         return delimiters[0] + output_str + delimiters[1]
@@ -135,7 +138,8 @@ def get_problem():
         selected_units = data.get('units', [])
         raw_difficulties = data.get('difficulties', [])
         selected_difficulties = [int(d) for d in raw_difficulties if isinstance(d, (int, str)) and str(d).isdigit()]
-        if not selected_units or not selected_difficulties: return jsonify(error="単元と難易度を少なくとも1つずつ選択してください。")
+        if not selected_units or not selected_difficulties:
+            return jsonify(error="単元と難易度を少なくとも1つずつ選択してください。")
         df_list = []
         if selected_book in ['all', 'chart'] and df_chart is not None:
             temp_chart = df_chart.copy(); temp_chart['source'] = 'chart'; df_list.append(temp_chart)
